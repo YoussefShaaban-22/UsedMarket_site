@@ -1,0 +1,344 @@
+<header id="header_admin" class="header_admin fixed-top d-flex align-items-center">
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="/admin" class="logo d-flex align-items-center">
+      <img src="" alt="">UsedMarket
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn"></i>
+  </div><!-- End Logo -->
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+
+      <li class="nav-item dropdown pe-3">
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <span class="d-none d-md-block dropdown-toggle ps-2">{{ name }}</span>
+        </a><!-- End Profile Iamge Icon -->
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header">
+            <h6>{{ name }}</h6>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <!-- <li>
+            <a href="" class="dropdown-item d-flex align-items-center">
+              <img style="width:10%; height:10%; padding-right: 5px" src="" alt=""> Arabic
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li> -->
+          <li>
+            <button class="btn" (click)="logout()">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Sign Out</span>
+            </button>
+          </li>
+        </ul><!-- End Profile Dropdown Items -->
+      </li><!-- End Profile Nav -->
+    </ul>
+  </nav><!-- End Icons Navigation -->
+</header><!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav" *ngIf="!user.seller_id; else sellernav">
+    <li class="nav-item">
+      <a class="nav-link " href="/admin">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+    <!-- <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#HomePage-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>HomePage</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="HomePage-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="">
+            <i class="bi bi-circle"></i><span>About Us</span>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="bi bi-circle"></i><span>Features</span>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="bi bi-circle"></i><span>Footer</span>
+          </a>
+        </li>
+      </ul>
+    </li> -->
+    <!-- End Components Nav -->
+
+    <!-- <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#Pages-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Pages</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="Pages-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="">
+            <i class="bi bi-circle"></i><span>Our Company</span>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="bi bi-circle"></i><span>Partner</span>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="bi bi-circle"></i><span>Contact Us</span>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="bi bi-circle"></i><span>Online Inquiry</span>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="bi bi-circle"></i><span>Privacy Policy</span>
+          </a>
+        </li>
+      </ul>
+    </li> -->
+    <!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Home Carousel</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="admin/slider/create">
+            <i class="bi bi-circle"></i><span>Add Image</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin/slider/show">
+            <i class="bi bi-circle"></i><span>Show All</span>
+          </a>
+        </li>
+
+      </ul>
+    </li>
+    <!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-homeslider" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Home Image</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-homeslider" class="nav-content collapse " data-bs-parent="#sidebar-homeslider">
+        <li>
+          <a href="admin/homeslider/create">
+            <i class="bi bi-circle"></i><span>Add Image</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin/homeslider/show">
+            <i class="bi bi-circle"></i><span>Show All</span>
+          </a>
+        </li>
+
+      </ul>
+    </li>
+    <!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Blog</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="admin/blog/create">
+            <i class="bi bi-circle"></i><span>Add New Blog </span>
+          </a>
+        </li>
+        <li>
+          <a href="admin/blog/show">
+            <i class="bi bi-circle"></i><span>Show All Blog </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#Blog_Category-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-menu-button-wide"></i><span>Blog Category</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="Blog_Category-nav" class="nav-content collapse " data-bs-parent="#forms-nav">
+            <li>
+              <a href="admin/blogCategory/create">
+                <i class="bi bi-circle"></i><span>Add New Category</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="admin/blogCategory/show">
+                <i class="bi bi-circle"></i><span>Show All Category</span>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+        <!-- End Components Nav -->
+      </ul>
+    </li>
+    <!-- End Forms Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-layout-text-window-reverse"></i><span>Seller</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="admin/seller/create">
+            <i class="bi bi-circle"></i><span>Add New Seller</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin/seller/show">
+            <i class="bi bi-circle"></i><span>Show All Seller</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- End Tables Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#Products-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="Products-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="admin/product/create">
+            <i class="bi bi-circle"></i><span>Add New Product</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin/product/show">
+            <i class="bi bi-circle"></i><span>All Products</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin/productcategory/show">
+            <i class="bi bi-circle"></i><span>All Categories</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin/brand/show">
+            <i class="bi bi-circle"></i><span>All Brand</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin/attribute/show">
+            <i class="bi bi-circle"></i><span>All Attributes</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin/color/show">
+            <i class="bi bi-circle"></i><span>All Color</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#Staff-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-layout-text-window-reverse"></i><span>Staff</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="Staff-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="admin/AddNewUser">
+            <i class="bi bi-circle"></i><span>Add New Staff</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin/showUser">
+            <i class="bi bi-circle"></i><span>Show All Staff</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- End Profile Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="admin/productInquiry">
+        <i class="bi bi-person"></i>
+        <span>Product inquiry</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="admin/AllOrders">
+        <i class="bi bi-person"></i>
+        <span>Orders</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="admin/AllRefund">
+        <i class="bi bi-person"></i>
+        <span>Refund</span>
+      </a>
+    </li>
+
+    <!-- End Profile Page Nav -->
+  </ul>
+  <ng-template #sellernav>
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li class="nav-item">
+        <a class="nav-link " href="/admin">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#Products-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="Products-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="admin/product/create">
+              <i class="bi bi-circle"></i><span>Add New Product</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin/product/show">
+              <i class="bi bi-circle"></i><span>All Products</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Components Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="admin/productInquiry">
+          <i class="bi bi-person"></i>
+          <span>Product inquiry</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="admin/AllOrders">
+          <i class="bi bi-person"></i>
+          <span>Orders</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="admin/AllRefund">
+          <i class="bi bi-person"></i>
+          <span>Refund</span>
+        </a>
+      </li>
+
+      <!-- End Profile Page Nav -->
+    </ul>
+  </ng-template>
+</aside>
+<!-- End Sidebar-->

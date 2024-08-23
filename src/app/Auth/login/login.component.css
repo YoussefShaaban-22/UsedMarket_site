@@ -1,0 +1,92 @@
+.welcome {
+  color: black;
+  font-size: 70px;
+  margin-top: 30px;
+  font: 400 60px/70px Times New Roman, Times,serif !important;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+}
+
+.form-group {
+  margin: auto;
+  color: black;
+  width: 485px;
+  height: 90px;
+}
+
+.form-group input {
+  border-radius: 10px;
+  border: none;
+  height: 45px;
+  font-size: 13px;
+  color: #161c27;
+  width: 100%;
+  background-color: #f974007d;
+}
+.form-group input:focus {
+  background-color: #f974007d;
+  outline: none;
+}
+
+.btn {
+  background-color: #f97300;
+  width: 380px;
+  border: none;
+  color: white;
+  font-size: 24px;
+  font-family: Montserrat;
+  font-weight: 700;
+  letter-spacing: 0%;
+  text-align: center;
+  margin-left: 52px;
+
+}
+@media (max-width: 992px) {
+  .welcome {
+    color: black;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+  }
+  .form-group {
+    margin: 0px auto;
+    width: 250px;
+    color: black;
+    height: 90px;
+  }
+  .btn {
+    background-color: #f97300;
+    width: 200px;
+    border: none;
+    color: white;
+    font-size: 24px;
+    font-family: Montserrat;
+    font-weight: 700;
+    letter-spacing: 0%;
+    text-align: center;
+    margin-left: 25px;
+
+  }
+}
+.text-danger{
+  text-align: center;
+
+}
+.register-link {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.register-link p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.register-link a {
+  color: #f97300;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

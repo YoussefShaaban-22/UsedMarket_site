@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="./blog-details.component.css">
+<app-navbar ></app-navbar>
+
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-7 col-sm-2">
+        <div class="section-title">
+          <h2>{{blog.name}}</h2>
+          <ng-container *ngFor="let blogcategory of blogcategories">
+            <h3 id="blog-category" *ngIf="blogcategory.id==blog.blog_category_id">{{blogcategory.name}}</h3>
+          </ng-container>
+          <p>{{ blog.created_at | date: 'MMM yyyy dd' }}</p>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div id="description" [innerHTML]="blog.description"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-5">
+        <div class="card">
+          <!-- Card Header -->
+          <div class="card-header">
+            <h5 class="card-title">Recent Post</h5>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+            <ng-container *ngFor="let allblog of blogs">
+              <div class="d-flex align-items-center">
+                <a href="/blog/{{allblog.slug}}">
+                  <!-- Blog Image -->
+                  <img [src]="allblog.image" class="img-fluid rounded" id="Blog_Image" alt="Blog Image">
+                </a>
+                <!-- Blog Details -->
+                <div id="info">
+                  <p id="name">{{ allblog.name }}</p>
+                  <h6 class="card-subtitle mb-2 text-muted">{{ allblog.created_at | date: 'MMM yyyy dd' }}</h6>
+                  <ng-container *ngFor="let blogcategory of blogcategories">
+                    <p id="blog_category" *ngIf="blogcategory.id==allblog.blog_category_id">{{blogcategory.name}}</p>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Contact Section -->
+<app-footer></app-footer>

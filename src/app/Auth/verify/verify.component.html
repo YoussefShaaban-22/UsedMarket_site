@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="./verify.component.css">
+
+<div class="container">
+  <div class="row">
+    <div class="register">
+      <p class="welcome"><b>Verify AN ACCOUNT</b></p>
+      <form (ngSubmit)="send()" #sliderForm="ngForm" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="">Email</label>
+          <input type="text" class="form-control" name="email" [(ngModel)]="email" readonly>
+        </div>
+        <div class="form-group">
+          <label for="">Verification code</label>
+          <input type="text" class="form-control" name="verification_code" [(ngModel)]="verification_code"
+            placeholder="Verification code" (ngModelChange)="clearError('verification_code')">
+            <div *ngIf="formErrors.verification_code" class="text-danger">
+              <p *ngFor="let error of formErrors.verification_code">{{ error }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn ">Verify</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

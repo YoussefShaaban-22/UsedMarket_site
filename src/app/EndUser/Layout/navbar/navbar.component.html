@@ -1,0 +1,170 @@
+<link rel="stylesheet" href="./navbar.component.css">
+
+<!-- ======= Header ======= -->
+<header class="header-area header-style-1 header-height-2">
+  <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+    <div class="container">
+      <div class="header-wrap" style="padding: 0px 0px 8px 0px;">
+        <div class="logo logo-width-1">
+          <a href="/"><img style="width: 150%; padding-top: 8px;" src="" class="align-items-center" alt="">Used
+            Market</a>
+        </div>
+        <div class="header-right">
+          <div class="search-style-1">
+            <form (ngSubmit)="onSearch()">
+              <input [(ngModel)]="searchTerm" name="search" type="text" placeholder="Search for items..." (input)="onSearchTermChange()">
+              <button type="submit"><i class="bi bi-search"></i></button>
+            </form>
+            <div class="search-results" *ngIf="filteredProducts.length > 0 && searchTerm.length > 0">
+              <ul>
+                <li *ngFor="let product of filteredProducts">
+                  <a [href]="'/product/' + product.slug">{{ product.name }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <i class="bi bi-person"></i>
+        <div class="auth">
+          <a *ngIf="!isAuthenticated; else logoutLink" [href]="['/login']">Login</a>
+        </div>
+
+        <ng-template #logoutLink>
+          <button class="btn" (click)="logout()">
+            <span>Logout</span>
+          </button>
+        </ng-template>
+
+        <div class="auth">
+          <a *ngIf="!isAuthenticated; else empty" [href]="['/register']">Register</a>
+        </div>
+        <ng-template #empty>
+        </ng-template>
+
+        <!-- <a href="/ar" class="dropdown-item d-flex align-items-center">
+                    <img id="flag_ar" style="width:8%; margin-left: 100px; height:15%; padding-left: 5px"
+                        src="" alt=""> ar
+                </a> -->
+
+      </div>
+    </div>
+  </div>
+  <div class="header-bottom header-bottom-bg-color sticky-bar">
+    <div class="container">
+      <div class="header-wrap header-space-between position-relative">
+        <div class="logo logo-width-1 d-block d-lg-none">
+          <a href="/">Used Market</a>
+        </div>
+        <div class="header-nav d-none d-lg-flex">
+          <div class="main-categori-wrap d-none d-lg-block">
+            <a class="categori-button-active">
+              <i class="bi bi-bookmarks"></i> Categories
+            </a>
+            <div class="categori-dropdown-wrap categori-dropdown-active-large">
+              <ul [innerHTML]="menucat">
+
+              </ul>
+
+            </div>
+          </div>
+          <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block new_menu">
+            <nav>
+              <ul style="margin-top: 13px;">
+                <li><a [href]="['']">Home </a></li>
+                <li><a [href]="['/blog']">Blogs </a></li>
+                <li><a [href]="['/brand']">Brands</a></li>
+                <li><a [href]="['/seller']">Sellers</a></li>
+                <li><a [href]="['/Myorder']">My Order</a></li>
+                <li class="ml-auto"><a [href]="['/Mycart']">My Cart<i class="bi bi-cart"></i><span
+                      class="pro-count blue">{{cartLength}}</span></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="header-action-right d-block d-lg-none">
+          <div class="header-action-2">
+            <div class="header-action-icon-2 d-block d-lg-none">
+              <div class="burger-icon burger-icon-white">
+                <span class="burger-icon-top"></span>
+                <span class="burger-icon-mid"></span>
+                <span class="burger-icon-bottom"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="mobile-header-active mobile-header-wrapper-style">
+  <div class="mobile-header-wrapper-inner">
+    <div class="mobile-header-top">
+      <div class="mobile-header-logo">
+        <a href="/"><img style="width: 50%; padding-top: 5px;" class="align-items-center" src="" alt="">Used Market</a>
+      </div>
+
+      <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+        <button class="close-style search-close">
+          <i class="icon-top"></i>
+          <i class="icon-bottom"></i>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-header-content-area">
+      <div class="mobile-search search-style-3 mobile-header-border">
+        <form (submit)="onSearch()">
+          <input [(ngModel)]="searchTerm" name="search" type="text" placeholder="Search for items...">
+          <button type="submit"><i class="bi bi-search"></i></button>
+        </form>
+      </div>
+      <div class="mobile-menu-wrap mobile-header-border">
+        <!-- mobile menu start -->
+        <nav>
+          <ul class="mobile-menu">
+            <li class="menu-item-has-children"><span class="menu-expand"><i class="bi bi-arrow-down"></i></span><a
+                href="#">
+                Categories</a>
+              <ul class="dropdown">
+                <ng-container *ngFor="let category of productcategories">
+                  <ng-container *ngIf="category.parent_id==0">
+                    <li class="nav-item">
+                      <a class="nav-link" [attr.href]="getCategoryUrl(category.slug)">{{ category.name }}</a>
+                    </li>
+                  </ng-container>
+                </ng-container>
+              </ul>
+            </li>
+
+            <li class="nav-item"><a class="nav-link" [href]="['']">Home </a></li>
+            <li class="nav-item"><a class="nav-link" [href]="['/blog']">Blogs </a></li>
+            <li class="nav-item"><a class="nav-link" [href]="['/brand']">Brands</a></li>
+            <li class="nav-item"><a class="nav-link" [href]="['/seller']">Sellers</a></li>
+            <li class="nav-item"><a class="nav-link" [href]="['/Myorder']">My Order</a></li>
+            <li class="nav-item"><a class="nav-link" [href]="['/Mycart']">My Cart<i class="bi bi-cart"></i><span
+                  class="pro-count blue">{{cartLength}}</span></a></li>
+
+            <li class="nav-item">
+              <a class="nav-link" *ngIf="!isAuthenticated; else logoutLink" [href]="['/login']">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" *ngIf="!isAuthenticated; else empty" [href]="['/register']">Register</a>
+            </li>
+            <ng-template #logoutLink>
+              <button class="btn" (click)="logout()">
+                <span>Logout</span>
+              </button>
+            </ng-template>
+            <ng-template #empty>
+            </ng-template>
+
+            <!-- <a href="/ar" class="dropdown-item d-flex align-items-center">
+                            <img id="flag_ar" style="width:10%; height:15%; padding-left: 5px"
+                                src="" alt=""> AR
+                        </a> -->
+          </ul>
+        </nav>
+        <!-- mobile menu end -->
+      </div>
+    </div>
+  </div>
+</div>

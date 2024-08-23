@@ -1,0 +1,334 @@
+<link rel="stylesheet" href="./create-product.component.css">
+<app-header></app-header>
+
+<main id="main" class="main mb-0 ">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3 ">
+              <h1 class="flex-grow-1" id="text">Add New Product</h1>
+            </div>
+            <!-- <form class="row g-3 mt-2 border-top border-dark" (ngSubmit)="save()" #productForm="ngForm" method="POST"
+              enctype="multipart/form-data"> -->
+
+            <div class="form-group row p-3">
+              <label class="col-lg-4 col-from-label">Product Name </label>
+              <div class="col-lg-6">
+                <input name="name" type="text" class="form-control" id="inputNanme4" [(ngModel)]="product.name" required
+                  (ngModelChange)="clearError('name')">
+              </div>
+              <div *ngIf="formErrors.name" class="text-danger">
+                <p *ngFor="let error of formErrors.name">{{ error }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="form-group row p-3">
+              <label class="col-lg-4 col-form-label">Select Category</label>
+              <div class="col-lg-6">
+                <select id="categorySelect" class="form-select" (ngModelChange)="clearError('category_id')"
+                  name="category_id" [(ngModel)]="product.category_id" required>
+                  <option selected disabled>--Select Category--</option>
+                  <option *ngFor="let category of filteredCategories" [value]="category.id">
+                    {{ getParentName(category) ? getParentName(category) + ' - ' : '' }}{{ category.name }}
+                  </option>
+                </select>
+                <br>
+                <div *ngIf="formErrors.category_id" class="text-danger">
+                  <p *ngFor="let error of formErrors.category_id">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="form-group row p-3">
+              <label class="col-lg-4 col-form-label">Product Tags</label>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" #tagInput (keydown.enter)="addTag(tagInput)"
+                  placeholder="Add tags and press Enter" (ngModelChange)="clearError('tags')" />
+                <div class="tags-container mt-2">
+                  <span *ngFor="let tag of tags; let i = index" class="badge text-dark me-2">
+                    {{ tag }}
+                    <button type="button" class="btn-close btn-close-white" (click)="removeTag(i)"></button>
+                  </span>
+                </div>
+                <div *ngIf="formErrors.tags" class="text-danger">
+                  <p *ngFor="let error of formErrors.tags">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class=" form-group row p-3">
+              <label class="col-lg-4 col-from-label"> Select Brand</label>
+              <div class="col-lg-6">
+                <select class="form-select" name="brand_id" (ngModelChange)="clearError('brand_id')"
+                  [(ngModel)]="product.brand_id" required>
+                  <option selected disabled>--Select Brand--</option>
+                  <option *ngFor="let brand of brands" [value]="brand.id">
+                    {{ brand.name }}
+                  </option>
+                </select>
+                <div *ngIf="formErrors.brand_id" class="text-danger">
+                  <p *ngFor="let error of formErrors.brand_id">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="form-group row p-3">
+              <label class="col-lg-4 col-from-label"> Select Colors</label>
+              <div class="col-lg-6">
+                <mat-form-field>
+                  <mat-label> Select Colors</mat-label>
+                  <mat-select [formControl]="selectedColors" (ngModelChange)="clearError('colors')" multiple>
+                    <mat-option *ngFor="let color of colors" [value]="color.id">
+                      {{ color.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="formErrors.colors" class="text-danger">
+                  <p *ngFor="let error of formErrors.colors">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class=" form-group row p-3">
+              <label class="col-lg-4 col-from-label"> Unit Price</label>
+              <div class="col-lg-6">
+                <input name="price" type="text" class="form-control" id="inputNanme4" [(ngModel)]="product.price"
+                  required (ngModelChange)="clearError('price')">
+                <div *ngIf="formErrors.price" class="text-danger">
+                  <p *ngFor="let error of formErrors.price">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class=" form-group row p-3">
+              <label class="col-lg-4 col-from-label"> Quantity</label>
+              <div class="col-lg-6">
+                <input name="quantity" type="text" class="form-control" id="inputNanme4" [(ngModel)]="product.quantity"
+                  required (ngModelChange)="clearError('quantity')">
+                <div *ngIf="formErrors.quantity" class="text-danger">
+                  <p *ngFor="let error of formErrors.quantity">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group row p-3" id="value">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-white" id="tableEstimate">
+                        <thead>
+                          <tr>
+                            <th style="width: 50px">Item</th>
+                            <th class="col-md-3">Attribute</th>
+                            <th class="col-md-3">Value Attribute</th>
+                            <th>
+                              <a href="javascript:void(0)" class="text-success font-18" title="Add" (click)="addRow()">
+                                <i class="bi bi-plus"></i>
+                              </a>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let row of rows; let i = index" [attr.id]="'R' + i">
+                            <td style="width: 50px" class="row-index text-center">
+                              <input name="item[]" type="text" class="form-control" [value]="i + 1" readonly>
+                            </td>
+                            <td>
+                              <input type="text" name="attribute_name[]" class="form-control" (ngModelChange)="clearError('product_attributes')" #attributeName>
+                              <div *ngIf="formErrors.product_attributes
+                                " class="text-danger">
+                                <p *ngFor="let error of formErrors.product_attributes">{{ error }}</p>
+                              </div>
+                            </td>
+                            <td>
+                              <input type="text" name="attribute_value[]" class="form-control" style="width: 100%" #attributeValue>
+                            </td>
+                            <td>
+                              <a href="javascript:void(0)" class="text-success font-18" title="Add" (click)="addRow()"
+                                *ngIf="i === rows.length - 1">
+                                <i class="bi bi-plus"></i>
+                              </a>
+                              <a href="javascript:void(0)" class="text-danger font-18" title="Remove"
+                                (click)="removeRow(i)">
+                                <i class="bi bi-trash"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class=" form-group row p-3">
+              <label class="col-lg-4 col-from-label"> Thumbnail Image</label>
+              <div class="col-lg-6">
+                <input name="thumbnail_img" type="file" class="form-control" (change)="onFileChangeLogo($event)"
+                  id="inputNanme4">
+                <img *ngIf="product.thumbnail_image" [src]="product.thumbnail_image" alt="product thumbnail_image"
+                  style="max-width: 100px; max-height: 100px; object-fit: cover; margin-top: 10px;"
+                  (ngModelChange)="clearError('thumbnail_image')">
+                <small><b>Make type of image in [webp] only.</b></small>
+                <div *ngIf="formErrors.thumbnail_image" class="text-danger">
+                  <p *ngFor="let error of formErrors.thumbnail_image">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class=" form-group row p-3">
+              <label class="col-lg-4 col-from-label"> Upload Image</label>
+              <div class="col-lg-6">
+                <input name="image[]" multiple type="file" class="form-control" (change)="onFileChange($event)"
+                  id="inputNanme4" (ngModelChange)="clearError('image')">
+                <small><b>Make type of image in [webp] only.</b></small><br>
+                <small><b>You can upload more than one image.</b></small>
+                <div *ngIf="formErrors.image" class="text-danger">
+                  <p *ngFor="let error of formErrors.image">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group row p-3">
+              <label class="col-lg-3 col-from-label"> Description</label>
+              <div class="col-lg-9">
+                <textarea name="description" #descriptionEditor class="form-control mysummernote" rows="4"
+                  [(ngModel)]="product.description" required (ngModelChange)="clearError('description')"></textarea>
+                <div *ngIf="formErrors.description" class="text-danger">
+                  <p *ngFor="let error of formErrors.description">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class=" form-group row p-3" *ngIf="!user.seller_id">
+              <label class="col-lg-4 col-from-label"> Status</label>
+              <div class="col-lg-6">
+                <select class="form-select" name="status" [(ngModel)]="product.status" required
+                  (ngModelChange)="clearError('status')">
+                  <option value="publish">publish</option>
+                  <option value="unpublish">unpublish</option>
+                </select>
+                <div *ngIf="formErrors.status" class="text-danger">
+                  <p *ngFor="let error of formErrors.status">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr *ngIf="!user.seller_id">
+            <div class=" form-group row p-3" *ngIf="!user.seller_id">
+              <label class="col-lg-4 col-from-label"> Feature Product</label>
+              <div class="col-lg-6">
+                <select class="form-select" name="feature_product" [(ngModel)]="product.feature_product" required
+                  (ngModelChange)="clearError('feature_product')">
+                  <option value="yes">yes</option>
+                  <option value="no">no</option>
+                </select>
+                <div *ngIf="formErrors.feature_product" class="text-danger">
+                  <p *ngFor="let error of formErrors.feature_product">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr *ngIf="!user.seller_id">
+            <div class=" form-group row p-3">
+              <label class="col-lg-4 col-from-label"> Slug</label>
+              <div class="col-lg-6">
+                <input name="slug" type="text" class="form-control" id="inputNanme4" [(ngModel)]="product.slug" required
+                  (ngModelChange)="clearError('slug')">
+                <div *ngIf="formErrors.slug" class="text-danger">
+                  <p *ngFor="let error of formErrors.slug">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+
+            <div class=" form-group row p-3">
+              <label class="col-lg-4 col-from-label"> Meta Description</label>
+              <div class="col-lg-6">
+                <textarea name="short_description" #short_descriptionEditor class="form-control mysummernote" rows="4"
+                  [(ngModel)]="product.short_description" required
+                  (ngModelChange)="clearError('short_description')"></textarea>
+                <div *ngIf="formErrors.short_description" class="text-danger">
+                  <p *ngFor="let error of formErrors.short_description">{{ error }}</p>
+                </div>
+              </div>
+            </div>
+            <hr>
+
+            <div class="col-md-12 form-group row p-3" id="value">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-white" id="tableEstimate">
+                        <thead>
+                          <tr>
+                            <th style="width: 50px">Item</th>
+                            <th class="col-md-3">From Quantity</th>
+                            <th class="col-md-3">TO Quantity</th>
+                            <th class="col-md-3">Discount Value</th>
+                            <th>
+                              <a href="javascript:void(0)" class="text-success font-18" title="Add" (click)="addRowdiscount()">
+                                <i class="bi bi-plus"></i>
+                              </a>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let row of discountrows; let i = index" [attr.id]="'R' + i">
+                            <td style="width: 50px" class="row-index text-center">
+                              <input name="item[]" type="text" class="form-control" [value]="i + 1" readonly>
+                            </td>
+                            <td>
+                              <input type="text" name="quantity[]" class="form-control" (ngModelChange)="clearError('product_discount')" #quantityamount>
+                              <div *ngIf="formErrors.product_discount
+                                " class="text-danger">
+                                <p *ngFor="let error of formErrors.product_discount">{{ error }}</p>
+                              </div>
+                            </td>
+                            <td>
+                              <input type="text" name="To_quantity[]" class="form-control" (ngModelChange)="clearError('product_discount')" #Toquantityamount>
+                              <div *ngIf="formErrors.product_discount
+                                " class="text-danger">
+                                <p *ngFor="let error of formErrors.product_discount">{{ error }}</p>
+                              </div>
+                            </td>
+                            <td>
+                              <input type="text" name="discount[]" class="form-control" style="width: 100%" #discount>
+                            </td>
+                            <td>
+                              <a href="javascript:void(0)" class="text-success font-18" title="Add" (click)="addRowdiscount()"
+                                *ngIf="i === discountrows.length - 1">
+                                <i class="bi bi-plus"></i>
+                              </a>
+                              <a href="javascript:void(0)" class="text-danger font-18" title="Remove"
+                                (click)="removeRowdiscount(i)">
+                                <i class="bi bi-trash"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+
+            <div class="form-group row p-3">
+              <label class="col-lg-4 col-form-label"></label>
+              <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary" (click)="save()" id="add">SaveProduct</button>
+              </div>
+            </div>
+            <!-- </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>

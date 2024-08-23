@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="./choose-way-paid.component.css">
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="row">
+    <div class="section-title">
+      <h2>Payment Method</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 cartMethod">
+      <div class="selection-box">
+        <input type="radio" id="option1" name="cartOption" class="selection-radio" value="cash">
+        <label for="option1" class="selection-label">
+          <img src="../../../../assets/img/cash.webp" alt="Option 1" class="selection-image">
+        </label>
+      </div>
+    </div>
+    <div class="col-md-6 cartMethod">
+      <div class="selection-box">
+        <input type="radio" id="option2" name="cartOption" class="selection-radio" value="card">
+        <label for="option2" class="selection-label">
+          <img src="../../../../assets/img/visa.webp" alt="Option 2" class="selection-image">
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12 text-center">
+      <button class="custom-btn" (click)="submitOrder()">Check Out</button>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

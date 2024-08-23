@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="./list-inquiry.component.css">
+
+<app-header></app-header>
+
+<main id="main" class="main">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1 mb-3" id="text">Inquiry</h1>
+            </div>
+            <!-- Table with stripped rows -->
+            <ng-container *ngIf="user.seller_id; else showall">
+              <table class="table rowtable ">
+                <thead>
+                  <tr>
+                    <th style="width: 15%" scope="col">User Email</th>
+                    <th style="width: 10%" scope="col">User Phone</th>
+                    <th style="width: 25%" scope="col">Product Name</th>
+                    <th style="width: 50%" scope="col">Inquiry</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                  <tr *ngFor="let inquiry of inquiries">
+                    <ng-container *ngIf="inquiry.seller_id==user.seller_id">
+                      <td style="width: 15%;"> <a href="mailto:{{ inquiry.user_email }}">{{ inquiry.user_email }}</a></td>
+                      <td style="width: 10%;"> <a href="tel:{{ inquiry.user_phone }}">{{ inquiry.user_phone }}</a></td>
+                      <td style="width: 25%;">{{ inquiry.product_name }}</td>
+                      <td style="width: 50%;">{{ inquiry.inquiry }}</td>
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-container>
+
+            <ng-template #showall>
+              <table class="table rowtable ">
+                <thead>
+                  <tr>
+                    <th style="width: 10%" scope="col">User Email</th>
+                    <th style="width: 10%" scope="col">User Phone</th>
+                    <th style="width: 15%" scope="col">Product Name</th>
+                    <th style="width: 15%" scope="col">Seller Name</th>
+                    <th style="width: 50%" scope="col">Inquiry</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let inquiry of inquiries">
+                    <td style="width: 10%;"> <a href="mailto:{{ inquiry.user_email }}">{{ inquiry.user_email }}</a></td>
+                    <td style="width: 10%;"> <a href="tel:{{ inquiry.user_phone }}">{{ inquiry.user_phone }}</a></td>
+                    <td style="width: 15%;">{{ inquiry.product_name }}</td>
+                    <ng-container *ngIf="inquiry.seller_id; else noSeller">
+                      <ng-container *ngFor="let seller of sellers">
+                        <ng-container *ngIf="seller.id === inquiry.seller_id">
+                          <td style="width: 15%;">{{ seller.name }}</td>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                    <ng-template #noSeller>
+                      <td>No Seller</td>
+                    </ng-template>
+                    <td style="width: 50%;">{{ inquiry.inquiry }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

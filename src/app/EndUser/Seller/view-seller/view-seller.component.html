@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="./view-seller.component.css">
+<app-navbar></app-navbar>
+
+
+<div class="container">
+  <div class="row">
+    <div class="section-title">
+      <h2>Sellers</h2>
+    </div>
+    <div class="row">
+      <ng-container *ngFor="let seller of sellers">
+        <div class="col-md-3">
+          <div class="card">
+            <div class="cardimage">
+              <a href="/seller/{{seller.slug}}">
+                <img [src]="seller.logo" class="card-img-top" id="seller-image" alt="...">
+              </a>
+            </div>
+            <div class="card-bodyd" id="card-seller">
+              <h5 id="seller-name">{{ seller.name }}</h5>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+
+</div>
+<app-footer></app-footer>

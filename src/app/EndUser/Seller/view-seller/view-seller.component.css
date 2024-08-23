@@ -1,0 +1,39 @@
+.section-title {
+  text-align: left;
+  padding-top: 20px;
+}
+
+.section-title h2 {
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.card {
+  background-color: #E2DFD0;
+  border: 1px solid #F97300;
+  border-radius: 20px;
+}
+
+#card-seller {
+  background-color: #E2DFD0;
+  height: 50px;
+  text-align: justify;
+  padding-left: 5px;
+  border-radius: 20px;
+
+}
+
+#seller-name {
+  padding-top: 10px;
+  color: #000000;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#seller-image{
+  object-fit: contain;
+  width: 100%;
+  height: 200px;
+  padding-top: 10px;
+}

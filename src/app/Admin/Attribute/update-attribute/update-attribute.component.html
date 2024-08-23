@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="./update-attribute.component.css">
+<app-header></app-header>
+<main id="main" class="main mb-0">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-2">
+              <h1 class="flex-grow-1" id="text">Update Attribute</h1>
+            </div>
+            <form *ngIf="attribute" class="row g-3 mt-2 border-top border-dark" (ngSubmit)="save()" #attributeForm="ngForm" method="POST"
+              enctype="multipart/form-data">
+              <div class="col-md-6">
+                <label>Attribute Name</label>
+                <input name="name" type="text" class="form-control" [(ngModel)]="attribute.name" required id="inputName4"
+                  placeholder="Enter the Attribute Name" (ngModelChange)="clearError('name')">
+                  <div *ngIf="formErrors.name" class="text-danger">
+                    <p *ngFor="let error of formErrors.name">{{ error }}</p>
+                  </div>
+
+              </div>
+
+              <div class="text-center">
+                <button name="btnSend" id="add" class="btn btn-primary w-25 mx-auto">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+

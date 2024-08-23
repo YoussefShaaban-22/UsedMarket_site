@@ -1,0 +1,105 @@
+<link rel="stylesheet" href="./myorder.component.css">
+<app-navbar></app-navbar>
+<div class="container order">
+  <div class="row">
+    <div class="section-title">
+      <h2>My Order</h2>
+    </div>
+  </div>
+  <div *ngFor="let groupedOrder of groupedOrders" class="order-group cart">
+
+    <div class="row">
+      <div class="col-md-2" *ngFor="let myorder of groupedOrder.products">
+        <ng-container *ngFor="let product of products">
+          <ng-container *ngIf="product.id == myorder.product_id">
+            <div>
+              <img [src]="product.thumbnail_image" alt="Product Image" class="img-fluid image">
+            </div>
+            <div>
+              <h3>{{product.name}}</h3>
+              <p>Color: <span>{{myorder.color}}</span></p>
+              <p>Quantity: <span>{{myorder.quantity}}</span></p>
+              <p>Price: <span>{{myorder.total_product_price}}</span></p>
+              <div *ngIf="checkRefund(myorder.id); else showModal">
+                <p>Refund Reason: {{checkRefund(myorder.id)?.reason}}</p>
+                <p>Refund Status: {{checkRefund(myorder.id)?.status}}</p>
+              </div>
+              <ng-template #showModal>
+                <!-- Template for the modal -->
+                <a type="button" class="btn btn_refund" data-bs-toggle="modal"
+                  [attr.data-bs-target]="'#cart'+myorder.id" *ngIf="groupedOrder.paid=='paid'">
+                  Refund
+                </a>
+                <!-- Modal Cart -->
+                <div class="modal fade" [attr.id]="'cart'+myorder.id" data-bs-backdrop="static" data-bs-keyboard="false"
+                  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Refund Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form #form="ngForm" (ngSubmit)="addRefund(product.id, myorder.id,product.seller_id)">
+                          <div class="col-md-12 mb-3">
+                            <label class="form-label">Product Name</label>
+                            <div class="quantity-control">
+                              <input type="text" [value]="product.name" readonly name="product_name" />
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 mb-3">
+                              <label class="form-label">Reason</label>
+                              <div class="quantity-control">
+                                <textarea name="reason" rows="4" cols="100" [(ngModel)]="refund.reason"
+                                  required></textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Send</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <ng-template #noComment>
+          <h2>No comment yet</h2>
+        </ng-template>
+        <h2 *ngIf="groupedOrder.comment; else noComment">Order Comment: {{groupedOrder.comment}}</h2>
+
+        <p class="total">Total Price: {{groupedOrder.total_price}}</p>
+
+        <a class="btn btn_view">{{groupedOrder.paid}}</a>
+        <a class="btn btn_remove">{{groupedOrder.status}}</a>
+
+        <div class="container">
+          <div class="row button_group">
+            <form (ngSubmit)="onSubmit(groupedOrder.order_id)">
+              <div class="form-group">
+                <label for="comment"><b> Add Required </b></label>
+                <ng-container *ngFor="let order of groupedOrders">
+                  <textarea id="user_required-{{order.id}}" [(ngModel)]="groupedOrder.user_required" class="form-control"
+                    name="user_required-{{order.id}}" required></textarea>
+                </ng-container>
+              </div>
+              <button type="submit" class="btn btn-primary mt-2">
+                Submit Required
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<app-footer></app-footer>

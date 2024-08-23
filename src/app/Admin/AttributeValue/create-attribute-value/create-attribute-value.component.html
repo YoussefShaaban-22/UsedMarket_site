@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="./create-attribute-value.component.css">
+<app-header></app-header>
+<main id="main" class="main mb-0 ">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1  mb-3" id="text">Attribute Values</h1>
+            </div>
+            <!-- Table with stripped rows -->
+            <table class="table rowtable">
+              <thead>
+                <tr>
+                  <th style="width: 25%" scope="col">Attribute</th>
+                  <th style="width: 50%" scope="col">Values</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of attributevalues">
+                  <ng-container *ngIf="attribute.id === item.attribute_id">
+                    <td>{{ attribute.name }}</td>
+                    <td>{{ item.value }}</td>
+                    <td>
+                      <a [href]="['/admin/attributevalue/update', item.id]" class="text-info"><i style="font-size: 25px; padding: 10px;" class="bi bi-pencil-square"></i></a>
+                      <a (click)="deleteattributevalue(item.id)"class="text-danger"><i style="font-size: 25px;" class="bi bi-trash"></i></a>
+                    </td>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3 ">
+              <h1 class="flex-grow-1" id="text">Add New Attribute Value</h1>
+            </div>
+
+            <form class="row g-3 mt-2 border-top border-dark" (ngSubmit)="save()" #attributevalueForm="ngForm" method="POST"
+              enctype="multipart/form-data">
+              <div class="col-md-12">
+                <label>Attribute Name</label>
+                <input name="attribute_id" readonly type="text" value="{{attribute.name}}" [(ngModel)]="attribute.name" class="form-control" id="inputNanme4">
+              </div>
+              <div class="col-md-12">
+                <label>Value</label>
+                <input name="value" type="text" class="form-control" [(ngModel)]="attributevalue.value"
+                (ngModelChange)="clearError('value')" id="inputNanme4">
+                <div *ngIf="formErrors.value" class="text-danger">
+                  <p *ngFor="let error of formErrors.value">{{ error }}</p>
+                </div>
+              </div>
+              <div class="text-center">
+                <button name="btnSend" id="add" class="btn btn-primary w-25 mx-auto"
+                  >Save</button>
+              </div>
+            </form><!-- End No Labels Form -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

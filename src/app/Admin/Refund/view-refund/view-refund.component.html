@@ -1,0 +1,188 @@
+<link rel="stylesheet" href="./view-refund.component.css">
+
+<app-header></app-header>
+
+<main id="main" class="main">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1 mb-3" id="text">Refund Order</h1>
+            </div>
+
+            <ng-container *ngIf="user.seller_id; else showall">
+              <table class="table rowtable">
+                <thead>
+                  <tr>
+                    <th style="width: 10%" scope="col">User Name</th>
+                    <th style="width: 10%" scope="col">User Phone</th>
+                    <th style="width: 5%" scope="col">OrderID</th>
+                    <th style="width: 10%" scope="col">Product Name</th>
+                    <th style="width: 5%" scope="col">Total Price</th>
+                    <th style="width: 5%" scope="col">Paid</th>
+                    <th style="width: 5%" scope="col">Status</th>
+                    <th style="width: 5%" scope="col">Reason</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let refund of refunds">
+                    <ng-container *ngFor="let product of products">
+                      <ng-container *ngIf="product.id == refund.product_id && product.seller_id == user_sellerId">
+                        <td style="width: 5%">
+                          <ul>
+                            <ng-container *ngFor="let user of users">
+                              <ng-container *ngIf="refund.user_id == user.id">
+                                <li>{{ user.name }}</li>
+                              </ng-container>
+                            </ng-container>
+                          </ul>
+                        </td>
+                        <td style="width: 5%">
+                          <ul>
+                            <ng-container *ngFor="let user of users">
+                              <ng-container *ngIf="refund.user_id == user.id">
+                                <li>{{ user.phone }}</li>
+                              </ng-container>
+                            </ng-container>
+                          </ul>
+                        </td>
+                        <td style="width: 5%">
+                          <ul>
+                            <ng-container *ngFor="let order of orders">
+                              <ng-container *ngIf="refund.order_id == order.id">
+                                <li>{{ order.order_id }}</li>
+                              </ng-container>
+                            </ng-container>
+                          </ul>
+                        </td>
+                        <td style="width: 10%">
+                          <ul>
+                            <ng-container *ngFor="let product of products">
+                              <ng-container *ngIf="product.id == refund.product_id">
+                                <li>{{ product.name }}</li>
+                              </ng-container>
+                            </ng-container>
+                          </ul>
+                        </td>
+                        <td style="width: 5%">
+                          <ul>
+                            <ng-container *ngFor="let order of orders">
+                              <ng-container *ngIf="refund.order_id == order.id">
+                                <li>{{ order.total_product_price }}</li>
+                              </ng-container>
+                            </ng-container>
+                          </ul>
+                        </td>
+                        <td style="width: 5%">
+                          <ul>
+                            <ng-container *ngFor="let order of orders">
+                              <ng-container *ngIf="refund.order_id == order.id">
+                                <li>{{ order.paid }}</li>
+                              </ng-container>
+                            </ng-container>
+                          </ul>
+                        </td>
+                        <td style="width: 5%">{{ refund.status }}</td>
+                        <td style="width: 5%">{{ refund.reason }}</td>
+                      </ng-container>
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+            </ng-container>
+
+            <ng-template #showall>
+              <table class="table rowtable">
+                <thead>
+                  <tr>
+                    <th style="width: 10%" scope="col">User Name</th>
+                    <th style="width: 10%" scope="col">User Phone</th>
+                    <th style="width: 5%" scope="col">OrderID</th>
+                    <th style="width: 10%" scope="col">Product Name</th>
+                    <th style="width: 5%" scope="col">Total Price</th>
+                    <th style="width: 5%" scope="col">Paid</th>
+                    <th style="width: 5%" scope="col">Status</th>
+                    <th style="width: 5%" scope="col">Reason</th>
+                    <th style="width: 10%" scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let refund of refunds">
+
+                    <td style="width: 5%">
+                      <ul>
+                        <ng-container *ngFor="let user of users">
+                          <ng-container *ngIf="refund.user_id == user.id">
+                            <li>{{ user.name }}</li>
+                          </ng-container>
+                        </ng-container>
+                      </ul>
+                    </td>
+                    <td style="width: 5%">
+                      <ul>
+                        <ng-container *ngFor="let user of users">
+                          <ng-container *ngIf="refund.user_id == user.id">
+                            <li>{{ user.phone }}</li>
+                          </ng-container>
+                        </ng-container>
+                      </ul>
+                    </td>
+                    <td style="width: 5%">
+                      <ul>
+                        <ng-container *ngFor="let order of orders">
+                          <ng-container *ngIf="refund.order_id == order.id">
+                            <li>{{ order.order_id }}</li>
+                          </ng-container>
+                        </ng-container>
+                      </ul>
+                    </td>
+                    <td style="width: 10%">
+                      <ul>
+                        <ng-container *ngFor="let product of products">
+                          <ng-container *ngIf="product.id == refund.product_id">
+                            <li>{{ product.name }}</li>
+                          </ng-container>
+                        </ng-container>
+                      </ul>
+                    </td>
+                    <td style="width: 5%">
+                      <ul>
+                        <ng-container *ngFor="let order of orders">
+                          <ng-container *ngIf="refund.order_id == order.id">
+                            <li>{{ order.total_product_price }}</li>
+                          </ng-container>
+                        </ng-container>
+                      </ul>
+                    </td>
+                    <td style="width: 5%">
+                      <ul>
+                        <ng-container *ngFor="let order of orders">
+                          <ng-container *ngIf="refund.order_id == order.id">
+                            <li>{{ order.paid }}</li>
+                          </ng-container>
+                        </ng-container>
+                      </ul>
+                    </td>
+                    <td style="width: 5%">{{ refund.status }}</td>
+                    <td style="width: 5%">{{ refund.reason }}</td>
+                    <td>
+                      <button class="btn text-btn" [disabled]="refund.status!='pending'"
+                        (click)="acceptRefund(refund.id, refund.order_id)">Accept</button>
+                      <button class="btn text-btn" [disabled]="refund.status!='pending'"
+                        (click)="cancelRefund(refund.id)">Cancel</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

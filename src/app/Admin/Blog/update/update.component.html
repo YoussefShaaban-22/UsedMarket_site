@@ -1,0 +1,99 @@
+<link rel="stylesheet" href="./update.component.css">
+
+<app-header></app-header>
+<main id="main" class="main mb-0">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3">
+              <h1 class="flex-grow-1" id="text">Update Blog</h1>
+            </div>
+            <form *ngIf="blog" class="row g-3 mt-2 border-top border-dark" (ngSubmit)="save()" #blogForm="ngForm"
+              method="POST" enctype="multipart/form-data">
+              <div class="col-md-6">
+                <label>Blog Name</label>
+                <input name="name" type="text" class="form-control" [(ngModel)]="blog.name" required id="inputNanme4"
+                  placeholder="Enter the Item Name" (ngModelChange)="clearError('name')">
+                <div *ngIf="formErrors.name" class="text-danger">
+                  <p *ngFor="let error of formErrors.name">{{ error }}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Category Name</label>
+                <select (ngModelChange)="clearError('blog_category_id')" class="form-select" name="blog_category_id"
+                  [(ngModel)]="blog.blog_category_id" required>
+                  <option disabled selected>-------- Select Category --------</option>
+                  <option *ngFor="let category of blogCategories" [value]="category.id">{{category.name}}</option>
+                </select>
+                <div *ngIf="formErrors.blog_category_id" class="text-danger">
+                  <p *ngFor="let error of formErrors.blog_category_id">{{ error }}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Slug</label>
+                <input name="slug" type="text" class="form-control" id="inputNanme4" [(ngModel)]="blog.slug" required
+                  placeholder="Slug" (ngModelChange)="clearError('slug')">
+                <div *ngIf="formErrors.slug" class="text-danger">
+                  <p *ngFor="let error of formErrors.slug">{{ error }}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Upload Image</label>
+                <input name="image" type="file" accept=".jpg,.jpeg,.png,.webp" class="form-control"
+                  (change)="onFileChange($event)" id="inputNanme4" (ngModelChange)="clearError('image')">
+                <img *ngIf="blog.image" [src]="blog.image" alt="Blog Image"
+                  style="max-width: 100px; max-height: 100px; object-fit: cover; margin-top: 10px;">
+                <div *ngIf="formErrors.image" class="text-danger">
+                  <p *ngFor="let error of formErrors.image">{{ error }}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Blog Status</label>
+                <select class="form-select" (ngModelChange)="clearError('status')" name="status"
+                  [(ngModel)]="blog.status" required>
+                  <option>Enabled</option>
+                  <option>Disabled</option>
+                </select>
+                <div *ngIf="formErrors.status" class="text-danger">
+                  <p *ngFor="let error of formErrors.status">{{ error }}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Top Blog</label>
+                <select class="form-select" (ngModelChange)="clearError('top_blog')" name="top_blog"
+                  [(ngModel)]="blog.top_blog" required>
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+                <div *ngIf="formErrors.top_blog" class="text-danger">
+                  <p *ngFor="let error of formErrors.top_blog">{{ error }}</p>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <label>Short Description</label>
+                <input name="short_description" type="text" [(ngModel)]="blog.short_description" required
+                  class="form-control" id="inputNanme4" (ngModelChange)="clearError('short_description')">
+                <div *ngIf="formErrors.short_description" class="text-danger">
+                  <p *ngFor="let error of formErrors.short_description">{{ error }}</p>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <label>Description</label>
+                <textarea #descriptionEditor name="description" class="form-control mysummernote"
+                  (ngModelChange)="clearError('description')" required></textarea>
+                <div *ngIf="formErrors.description" class="text-danger">
+                  <p *ngFor="let error of formErrors.description">{{ error }}</p>
+                </div>
+              </div>
+              <div class="text-center">
+                <button name="btnSend" id="add" class="btn btn-primary w-25 mx-auto">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

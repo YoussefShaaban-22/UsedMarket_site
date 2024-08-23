@@ -1,0 +1,51 @@
+
+<link rel="stylesheet" href="./listcolor.component.css">
+<app-header></app-header>
+
+<main id="main" class="main">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1 mb-3" id="text">Colors</h1>
+              <a href="admin/color/create" id="add" class="btn btn-info mb-4">
+                Add New Color
+              </a>
+            </div>
+            <!-- Table with stripped rows -->
+            <table class="table rowtable ">
+              <thead>
+                <tr>
+                  <th style="width: 40%" scope="col">Name</th>
+                  <th style="width: 40%" scope="col">code</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let color of colors">
+
+                  <td style="width: 40%">{{ color.name }}</td>
+                  <td style="width: 40%;"  [style.background-color]="color.code">{{ color.code }}</td>
+                  <td>
+                    <a (click)="editcolors(color.id)" class="text-info"><i style="font-size: 25px; padding: 10px;" class="bi bi-pencil-square"></i></a>
+                    <a (click)="deletecolors(color.id)" class="text-danger"><i style="font-size: 25px;" class="bi bi-trash"></i></a>
+                  </td>
+                </tr>
+
+
+              </tbody>
+
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

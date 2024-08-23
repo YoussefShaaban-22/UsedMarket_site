@@ -1,0 +1,551 @@
+<link rel="stylesheet" href="./home.component.css">
+<app-navbar></app-navbar>
+
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+  <div class="hero-container">
+    <div id="heroCarousel" data-bs-interval="3000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+      <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active" [ngStyle]="{'background-image': 'url(' +firstImage?.image + ')'}">
+        </div>
+        <ng-container *ngFor="let slider of sliders">
+          <ng-container *ngIf="slider.id != firstImage?.id">
+            <div class="carousel-item" [ngStyle]="{'background-image': 'url(' + slider.image + ')'}">
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+      </a>
+
+    </div>
+  </div>
+</section>
+<!-- End Hero -->
+
+<!-- ======= product Section ======= -->
+<section id="product" class="product ">
+  <div class="container">
+    <div class="section-title">
+
+      <h2>Categories</h2>
+
+    </div>
+    <div class="clients-slider swiper">
+      <div class="swiper-wrapper align-items-center">
+        <ng-container *ngFor="let category of category">
+          <ng-container *ngIf="category.parent_id==0">
+            <div class="swiper-slide card card_category">
+              <a [href]="['/category/'+category.slug]">
+                <img [src]="category.image" class="card-img-top circle-image" alt="...">
+              </a>
+              <div class="card-bodyd">
+                <a [href]="['/category/'+category.slug]">
+                  <h5 id="category_name" class="card-title">{{ category.name }}</h5>
+                </a>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="swiper-pagination">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End product Section -->
+
+<!-- ======= Hero Section ======= -->
+<section id="hero1">
+  <div class="hero-container">
+    <ng-container *ngFor="let homeslider of homesliders">
+      <div class="carousel-item active" *ngIf="homeslider.order==1"
+        [ngStyle]="{'background-image': 'url(' +homeslider.slider_image + ')'}">
+      </div>
+    </ng-container>
+  </div>
+</section>
+<!-- End Hero -->
+
+<!-- ======= product Section ======= -->
+<section id="product" class="product ">
+  <div class="container">
+    <div class="section-title">
+      <b>
+        <h2>Feature Product</h2>
+      </b>
+    </div>
+    <div class="clients-slider swiper">
+      <div class="swiper-wrapper align-items-center">
+        <ng-container *ngFor="let feature_product of feature_products">
+          <ng-container *ngIf="feature_product.feature_product === 'yes'">
+            <div class="swiper-slide card">
+              <div class="cardimage">
+                <a [href]="['/product/'+feature_product.slug]">
+                  <img [src]="feature_product.thumbnail_image" class="card-img-top product_image"
+                    style="object-fit: contain;" alt="...">
+                </a>
+                <div class="card-footer">
+                  <a type="button" class="btn-footer" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#cart' + feature_product.id">
+                    Add to Cart
+                  </a>
+                </div>
+              </div>
+              <div class="card-bodyd product_info">
+                <a [href]="['/product/'+feature_product.slug]">
+                  <h5 class="card-name product_name">{{ feature_product.name }}</h5>
+                </a>
+                <h3 class="product_price">{{ feature_product.price }} EGP</h3>
+                <a class="btn" [href]="['/product/'+feature_product.slug]">
+                  See Details
+                </a>
+              </div>
+            </div>
+            <div class="modal fade" [attr.id]="'cart' + feature_product.id" data-bs-backdrop="static"
+              data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add product to Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form (ngSubmit)="onSubmit(feature_product.id, feature_product.price)" #form="ngForm">
+                      <div class="col-md-12 mb-3">
+                        <label class="form-label">Product Name</label>
+                        <div class="quantity-control">
+                          <input type="text" [value]="feature_product.name" readonly name="productName" />
+                        </div>
+                      </div>
+                      <div class="row" *ngFor="let entry of entries; let i = index">
+                        <div class="col-md-4 mb-3">
+                          <label for="quantity-{{ i }}" class="form-label">Quantity</label>
+                          <div class="quantity-control">
+                            <button type="button" (click)="decreaseQuantityCart(i)"
+                              [disabled]="entry.quantity <= 1">-</button>
+                            <input type="number" [(ngModel)]="entry.quantity" id="quantity-{{ i }}"
+                              name="quantity-{{ i }}" min="1" max="{{ feature_product.quantity }}" required
+                              (ngModelChange)="clearError('quantity')" />
+                            <button type="button" (click)="increaseQuantityCart(i)"
+                              [disabled]="entry.quantity >= feature_product.quantity">+</button>
+                          </div>
+                          <div *ngIf="formErrors.quantity" class="text-danger">
+                            <p *ngFor="let error of formErrors.quantity">{{ error }}</p>
+                          </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="color-{{ i }}" class="form-label">Select Color</label>
+                          <select id="color-{{ i }}" name="color-{{ i }}" class="form-select"
+                            [(ngModel)]="entry.selectedColor" (ngModelChange)="clearError('color')" required>
+                            <ng-container *ngFor="let colors of productcolors">
+                              <ng-container *ngFor="let color of color">
+                                <option *ngIf="colors.color_id == color.id && colors.product_id == feature_product.id"
+                                  [value]="color.name">{{ color.name }}</option>
+                              </ng-container>
+                            </ng-container>
+                          </select>
+                          <div *ngIf="formErrors.color" class="text-danger">
+                            <p *ngFor="let error of formErrors.color">{{ error }}</p>
+                          </div>
+                        </div>
+                        <div class="col-md-2 mb-3 d-flex align-items-end">
+                          <button type="button" class="btn btn-danger" (click)="removeEntry(i)"
+                            [disabled]="entries.length === 1">
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                      <button type="button" class="btn-card btn-secondary mb-3" (click)="addEntry()">Add New
+                        Color</button>
+                      <button type="submit" class="btn-card btn-primary">Add To Cart</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="swiper-pagination">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End product Section -->
+
+<!-- ======= Hero Section ======= -->
+<section id="hero1">
+  <div class="hero-container">
+    <ng-container *ngFor="let homeslider of homesliders">
+      <div class="carousel-item active" *ngIf="homeslider.order==2"
+        [ngStyle]="{'background-image': 'url(' +homeslider.slider_image + ')'}">
+      </div>
+    </ng-container>
+  </div>
+</section>
+<!-- End Hero -->
+
+<!-- ======= product Section ======= -->
+<section id="product" class="product ">
+  <div class="container">
+    <div class="section-title">
+      <b>
+        <h2>Best Selling</h2>
+      </b>
+    </div>
+    <div class="clients-slider swiper">
+      <div class="swiper-wrapper align-items-center">
+        <ng-container *ngFor="let product of Newproducts">
+
+          <div class="swiper-slide card">
+            <div class="cardimage">
+              <a [href]="['/product/'+product.slug]">
+                <img [src]="product.thumbnail_image" class="card-img-top product_image" alt="...">
+              </a>
+              <div class="card-footer">
+                <a type="button" class="btn-footer" data-bs-toggle="modal" [attr.data-bs-target]="'#cart'+product.id">
+                  Add to Cart
+                </a>
+              </div>
+            </div>
+            <div class="card-bodyd product_info">
+              <a [href]="['/product/'+product.slug]">
+                <h5 class="card-name product_name">{{ product.name }}</h5>
+              </a>
+              <h3 class="product_price">{{ product.price }} EGP</h3>
+              <a class="btn" [href]="['/product/'+product.slug]">
+                See Details
+              </a>
+            </div>
+          </div>
+          <div class="modal fade" [attr.id]="'cart'+product.id" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Add product in Cart</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form (ngSubmit)="onSubmit(product.id,product.price)" #form="ngForm">
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label">Product Name</label>
+                      <div class="quantity-control">
+                        <input type="text" [value]="product.name" readonly name="quantity" />
+                      </div>
+                    </div>
+                    <div class="row" *ngFor="let entry of entries; let i = index">
+                      <div class="col-md-4 mb-3">
+                        <label for="quantity-{{ i }}" class="form-label">Quantity</label>
+                        <div class="quantity-control">
+                          <button type="button" (click)="decreaseQuantityCart(i)"
+                            [disabled]="entry.quantity <= 1">-</button>
+                          <input type="number" [(ngModel)]="entry.quantity" id="quantity-{{ i }}"
+                            name="quantity-{{ i }}" min="1" max="{{product.quantity}}" required
+                            (ngModelChange)="clearError('quantity')" />
+                          <button type="button" (click)="increaseQuantityCart(i)"
+                            [disabled]="entry.quantity >= product.quantity">+</button>
+                        </div>
+                        <div *ngIf="formErrors.quantity" class="text-danger">
+                          <p *ngFor="let error of formErrors.quantity">{{ error }}</p>
+                        </div>
+
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="color-{{ i }}" class="form-label">Select Color</label>
+                        <select id="color-{{ i }}" name="color-{{ i }}" class="form-select"
+                          [(ngModel)]="entry.selectedColor" (ngModelChange)="clearError('color')" required>
+                          <ng-container *ngFor="let colors of productcolors">
+                            <ng-container *ngFor="let color of color">
+                              <option *ngIf="colors.color_id == color.id && colors.product_id==product.id"
+                                [value]="color.name">{{ color.name }}
+                              </option>
+                            </ng-container>
+                          </ng-container>
+                        </select>
+                        <div *ngIf="formErrors.color" class="text-danger">
+                          <p *ngFor="let error of formErrors.color">{{ error }}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-2 mb-3 d-flex align-items-end">
+                        <button type="button" class="btn btn-danger" (click)="removeEntry(i)"
+                          [disabled]="entries.length === 1">
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                    <button type="button" class="btn-card  btn-secondary mb-3" (click)="addEntry()">Add New
+                      Color</button>
+                    <button type="submit" class="btn-card  btn-primary">Add To Cart</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+      <div class="swiper-pagination">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End product Section -->
+
+<!-- ======= product Section ======= -->
+<section id="product" class="product ">
+  <div class="container">
+    <div class="section-title">
+      <b>
+        <h2>New Product</h2>
+      </b>
+    </div>
+    <div class="clients-slider swiper">
+      <div class="swiper-wrapper align-items-center">
+        <ng-container *ngFor="let product of Newproducts">
+
+          <div class="swiper-slide card">
+            <div class="cardimage">
+              <a [href]="['/product/'+product.slug]">
+                <img [src]="product.thumbnail_image" class="card-img-top  product_image" alt="...">
+              </a>
+              <div class="card-footer">
+                <a type="button" class="btn-footer" data-bs-toggle="modal" [attr.data-bs-target]="'#cart'+product.id">
+                  Add to Cart
+                </a>
+              </div>
+            </div>
+            <div class="card-bodyd product_info">
+              <a [href]="['/product/'+product.slug]">
+                <h5 class="card-name product_name">{{ product.name }}</h5>
+              </a>
+              <h3 class="product_price">{{ product.price }} EGP</h3>
+              <a class="btn" [href]="['/product/'+product.slug]">
+                See Details
+              </a>
+            </div>
+          </div>
+          <div class="modal fade" [attr.id]="'cart'+product.id" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Add product in Cart</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form (ngSubmit)="onSubmit(product.id,product.price)" #form="ngForm">
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label">Product Name</label>
+                      <div class="quantity-control">
+                        <input type="text" [value]="product.name" readonly name="quantity" />
+                      </div>
+                    </div>
+                    <div class="row" *ngFor="let entry of entries; let i = index">
+                      <div class="col-md-4 mb-3">
+                        <label for="quantity-{{ i }}" class="form-label">Quantity</label>
+                        <div class="quantity-control">
+                          <button type="button" (click)="decreaseQuantityCart(i)"
+                            [disabled]="entry.quantity <= 1">-</button>
+                          <input type="number" [(ngModel)]="entry.quantity" id="quantity-{{ i }}"
+                            name="quantity-{{ i }}" min="1" max="{{product.quantity}}" required
+                            (ngModelChange)="clearError('quantity')" />
+                          <button type="button" (click)="increaseQuantityCart(i)"
+                            [disabled]="entry.quantity >= product.quantity">+</button>
+                        </div>
+                        <div *ngIf="formErrors.quantity" class="text-danger">
+                          <p *ngFor="let error of formErrors.quantity">{{ error }}</p>
+                        </div>
+
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="color-{{ i }}" class="form-label">Select Color</label>
+                        <select id="color-{{ i }}" name="color-{{ i }}" class="form-select"
+                          [(ngModel)]="entry.selectedColor" (ngModelChange)="clearError('color')" required>
+                          <ng-container *ngFor="let colors of productcolors">
+                            <ng-container *ngFor="let color of color">
+                              <option *ngIf="colors.color_id == color.id && colors.product_id==product.id"
+                                [value]="color.name">{{ color.name }}
+                              </option>
+                            </ng-container>
+                          </ng-container>
+                        </select>
+                        <div *ngIf="formErrors.color" class="text-danger">
+                          <p *ngFor="let error of formErrors.color">{{ error }}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-2 mb-3 d-flex align-items-end">
+                        <button type="button" class="btn btn-danger" (click)="removeEntry(i)"
+                          [disabled]="entries.length === 1">
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                    <button type="button" class="btn-card  btn-secondary mb-3" (click)="addEntry()">Add New
+                      Color</button>
+                    <button type="submit" class="btn-card  btn-primary">Add To Cart</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+      <div class="swiper-pagination">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End product Section -->
+
+<!-- ======= Hero Section ======= -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <section id="hero1" class="hero1">
+        <div class="hero-container">
+          <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+              <ng-container *ngFor="let homeslider of homesliders">
+                <div class="carousel-item active" id="hero1-image" *ngIf="homeslider.order==1"
+                  [ngStyle]="{'background-image': 'url(' +homeslider.slider_image + ')'}">
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-6">
+      <section id="hero1" class="hero1">
+        <div class="hero-container">
+          <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+              <ng-container *ngFor="let homeslider of homesliders">
+                <div class="carousel-item active" *ngIf="homeslider.order==2"
+                  [ngStyle]="{'background-image': 'url(' +homeslider.slider_image + ')'}">
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<!-- End Hero -->
+
+<!-- ======= Blog Section ======= -->
+<section id="product" class="product">
+  <div class="container">
+    <div class="section-title">
+      <h2>Blogs</h2>
+    </div>
+    <div class="clients-slider swiper">
+      <div class="swiper-wrapper align-items-center">
+        <ng-container *ngFor="let blog of blogs">
+          <ng-container *ngIf="blog.top_blog === 'Yes'">
+            <div class="swiper-slide card">
+              <div class="cardimage">
+                <a [href]="['/blog/'+blog.slug]">
+                  <img [src]="blog.image" class="card-img-top" alt="...">
+                </a>
+              </div>
+              <div id="card-blog">
+                <h5 id="blog-name">{{ blog.name }}</h5>
+                <h3>{{ blog.short_description }}</h3>
+                <p>{{ blog.created_at | date: 'MMM yyyy dd' }}</p>
+                <ng-container *ngFor="let blogcategory of blogcategories">
+                  <p id="blog-category" *ngIf="blogcategory.id === blog.blog_category_id">{{ blogcategory.name }}</p>
+                </ng-container>
+              </div>
+              <div id="read">
+                <a [href]="['/blog/'+blog.slug]">
+                  <h3>Read Full Blog</h3>
+                </a>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+<!-- End Blog Section -->
+
+<!-- ======= Brand Section ======= -->
+<section id="product" class="product ">
+  <div class="container">
+    <div class="section-title">
+      <b>
+        <h2>Brands</h2>
+      </b>
+    </div>
+    <div class="clients-slider swiper">
+      <div class="swiper-wrapper align-items-center">
+        <ng-container *ngFor="let brand of brands">
+          <div class="swiper-slide card">
+            <div class="cardimage">
+              <a [href]="['/brand/'+brand.slug]">
+                <img [src]="brand.logo" class="card-img-top " id="blog-image" alt="...">
+              </a>
+            </div>
+            <div class="card-bodyd" id="card-brand">
+              <h5 id="brand-name">{{ brand.name }}</h5>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="swiper-pagination">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Brand Section -->
+
+<!-- ======= Seller Section ======= -->
+<section id="product" class="product ">
+  <div class="container">
+    <div class="section-title">
+      <b>
+        <h2>Sellers</h2>
+      </b>
+    </div>
+    <div class="clients-slider swiper">
+      <div class="swiper-wrapper align-items-center">
+        <ng-container *ngFor="let seller of sellers">
+          <div class="swiper-slide card">
+            <div class="cardimage">
+              <a [href]="['/seller/'+seller.slug]">
+                <img [src]="seller.logo" class="card-img-top " id="blog-image" alt="...">
+              </a>
+            </div>
+            <div class="card-bodyd" id="card-seller">
+              <h5 id="seller-name">{{ seller.name }}</h5>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="swiper-pagination">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Seller Section -->
+
+
+<app-footer></app-footer>

@@ -1,0 +1,289 @@
+.section-title h2 {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.container-fluid {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+.circle-image {
+  width: 177px !important;
+  height: 177px;
+  border-radius: 50%;
+  object-fit: cover !important;
+}
+
+.card_category {
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 50% !important;
+  background-color: transparent;
+}
+
+#category_name {
+  font-size: 18px !important;
+}
+
+.card-title {
+  margin-top: -20px !important;
+  font-size: 20px !important;
+}
+
+.card-name {
+  font-size: 20px !important;
+}
+
+.cardimage {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background-color: #F97300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.card:hover .card-footer {
+  opacity: 1;
+  visibility: visible;
+}
+
+#hero1 {
+  width: 100%;
+  height: 30vh;
+  background-color: rgba(17, 17, 17, 0.8);
+  overflow: hidden;
+  padding: 0;
+}
+
+#hero1 .carousel-item {
+  width: 100%;
+  height: 30vh;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  transition: 0.3s;
+  object-fit: cover;
+}
+
+@media (max-width: 500px) {
+  #hero1 {
+    height: 30vh !important;
+  }
+
+  #hero1 .carousel-item {
+    height: 30vh !important;
+  }
+}
+
+#hero1 .carousel-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.card {
+  background-color: #E2DFD0;
+}
+
+#card-blog {
+  background-color: #E2DFD0;
+  height: 200px;
+  text-align: justify;
+  padding-left: 5px;
+}
+
+#blog-name {
+  padding-top: 10px;
+  color: #000000;
+  font-size: 14px;
+}
+
+#card-blog h3,
+p {
+  color: hsla(0, 0%, 0%, 0.600);
+  font-size: 10px;
+
+}
+
+#blog-category {
+  color: #F97300;
+}
+
+#read {
+  background-color: #E2DFD0;
+  text-align: left;
+  padding-left: 5px;
+}
+
+#read a {
+  color: #F97300;
+}
+
+#blog-image {
+  height: 160px;
+  object-fit: contain;
+}
+
+#seller-name {
+  padding-top: 10px;
+  color: #F97300;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#card-seller {
+  background-color: #E2DFD0;
+  height: 80px;
+  text-align: center;
+  padding-left: 5px;
+
+}
+
+#brand-name {
+  padding-top: 10px;
+  color: #F97300;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#card-brand {
+  background-color: #E2DFD0;
+  height: 80px;
+  text-align: center;
+  padding-left: 5px;
+
+}
+
+.product_image {
+  object-fit: contain;
+  width: 100% !important;
+  height: 180px !important;
+}
+
+.card-bodyd {
+  background-color: transparent;
+}
+
+.product_name {
+  padding-top: 10px;
+}
+
+.product_price {
+  color: #F97300;
+}
+
+.product_info{
+ height: 150px !important;
+
+}
+
+.btn {
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white !important;
+  background-color: #F97300;
+}
+
+.btn-footer {
+  color: white !important;
+  background-color: #F97300;
+}
+
+.modal-title{
+  font-weight: bold;
+  color: black;
+  font-size: 18px;
+}
+.quantity-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.quantity-control {
+  display: flex;
+
+}
+
+.quantity-control button {
+  background-color: #f98d00;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.quantity-control button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.quantity-control input {
+  width: 50%;
+  text-align: center;
+  font-size: 16px;
+  padding: 5px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.btn-card  {
+  color: white !important;
+  background-color: #F97300;
+  margin: 10px 10px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.modal {
+  z-index: 1050 !important; /* Bootstrap default is 1050, adjust if necessary */
+}
+
+/* Ensure the slider doesn't interfere with the modal display */
+.clients-slider {
+  position: relative !important; /* Ensures proper stacking context */
+  z-index: 1 !important; /* Lower than the modal */
+}
+
+/* Make sure no parent element has overflow hidden */
+.clients-slider .swiper-wrapper {
+  overflow: visible !important; /* Ensure modal is not clipped */
+}
+.modal-dialog {
+  margin: 0 auto !important; /* Center the modal horizontally */
+}
+
+.modal-content {
+  position: relative;
+  z-index: 1050 !important; /* Ensure it appears above other elements */
+}
+
+.clients-slider {
+  position: relative;
+  z-index: 1 !important; /* Lower z-index than the modal */
+}
+
+.swiper-wrapper {
+  overflow: visible !important; /* Ensure modal is not clipped */
+}

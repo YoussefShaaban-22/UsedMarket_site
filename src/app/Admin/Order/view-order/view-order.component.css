@@ -1,0 +1,59 @@
+#add {
+  background-color: #F97300;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+#text{
+  color: #F97300;
+}
+.button_group{
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn{
+  border-radius: 45px;
+  margin: 10px 15px;
+  width: 30%;
+  font-weight: bold;
+}
+.btn-paid{
+  background-color: #F97300;
+  color: white;
+}
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+}
+
+.receipt-table th,
+.receipt-table td {
+  text-align: left;
+  padding: 5px 10px;
+}
+
+.receipt-table th {
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+}
+
+.receipt-table td {
+  border-bottom: 1px dashed #000;
+}
+
+.receipt-total {
+  font-weight: bold;
+  border-top: 1px solid #000;
+}
+
+.receipt-table .no-border {
+  border: none;
+}
+.pdf {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}

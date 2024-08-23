@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="./list-seller.component.css">
+<app-header></app-header>
+
+<main id="main" class="main">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1 mb-3" id="text">Seller</h1>
+              <a href="admin/seller/create" id="add" class="btn btn-info mb-4">
+                Add New Seller
+              </a>
+            </div>
+            <!-- Table with stripped rows -->
+            <table class="table rowtable ">
+              <thead>
+                <tr>
+                  <th style="width: 40%" scope="col">Logo</th>
+                  <th style="width: 30%" scope="col">Name</th>
+                  <th style="width: 10%" scope="col">Show Data</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let seller of sellers">
+                    <td style="width: 40%">
+                      <img [src]="seller.logo" alt="seller Image"
+                        style="max-width: 100px; max-height: 100px; object-fit: cover;">
+                    </td>
+                    <td style="width: 30%">{{ seller.name }}</td>
+                    <td style="width: 10%">{{ seller.showData }}</td>
+                    <td>
+                      <a (click)="editseller(seller.id)" class="text-info"><i style="font-size: 25px; padding: 10px;"
+                          class="bi bi-pencil-square"></i></a>
+                      <a (click)="deleteseller(seller.id)" class="text-danger"><i style="font-size: 25px;"
+                          class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+
+
+              </tbody>
+
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

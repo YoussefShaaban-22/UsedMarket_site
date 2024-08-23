@@ -1,0 +1,71 @@
+.section-title{
+  text-align: left;
+}
+.section-title h2{
+  font-weight: bold;
+  font-size: 30px;
+}
+.section-title h3{
+  font-weight: bold;
+  color:#F97300;
+}
+
+.card {
+  background-color: #E2DFD0;
+  border: 1px solid #F97300;
+}
+
+.card-header {
+  background-color: #E2DFD0;
+  height: 40px;
+  text-align: center;
+  justify-content: center;
+}
+
+.card-title {
+  color: #F97300;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 0;
+}
+
+#Blog_Image {
+  height: 100px;
+  width: 110px !important;
+  object-fit: contain;
+}
+
+#blog_category {
+  color: #F97300;
+  margin: 0 !important;
+}
+
+#info {
+  padding-left: 10px;
+  padding-top: 0;
+}
+.card-subtitle{
+  margin: 0 !important;
+}
+.image {
+  width: 150px !important;
+  height: 100px;
+  object-fit: contain;
+}
+
+#name {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0 !important;
+}
+@media (max-width:991px){
+  #name {
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0 !important;
+  }
+  .section-title h2{
+    font-weight: bold;
+    font-size: 15px;
+  }
+}

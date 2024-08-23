@@ -1,0 +1,15 @@
+#add {
+  background-color: #F97300;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+#text{
+  color: #F97300;
+}
+.text-btn{
+  color: #F97300;
+
+}

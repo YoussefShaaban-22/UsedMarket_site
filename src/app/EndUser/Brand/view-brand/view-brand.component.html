@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="./view-brand.component.css">
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="row">
+    <div class="section-title">
+      <h2>Brands</h2>
+    </div>
+    <div class="row">
+      <ng-container *ngFor="let brand of brands">
+        <div class="col-md-3">
+          <div class="card">
+            <div class="cardimage">
+              <a  href="/brand/{{brand.slug}}">
+                <img [src]="brand.logo" class="card-img-top" id="seller-image" alt="...">
+              </a>
+            </div>
+            <div class="card-bodyd" id="card-seller">
+              <h5 id="seller-name">{{ brand.name }}</h5>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+
+</div>
+<app-footer></app-footer>

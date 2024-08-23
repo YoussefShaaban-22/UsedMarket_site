@@ -1,0 +1,310 @@
+<link rel="stylesheet" href="./view-order.component.css">
+
+<app-header></app-header>
+
+<main id="main" class="main">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1 mb-3" id="text">Order</h1>
+            </div>
+            <ng-container *ngIf="user.seller_id; else showall">
+              <div class="pdf">
+                <div class="container" *ngFor="let order of groupedOrders">
+                  <p>Order Id: {{ order.order_id }}</p>
+                  <ng-container *ngFor="let user of users">
+                    <ng-container *ngIf="order.users == user.id">
+                      <p>User Email: {{ user.name }}</p>
+                      <p>User Phone: {{ user.phone }}</p>
+                      <p>Address: {{ user.address }}</p>
+                      <p>Date: {{ order.created_at | date:'dd MMMM yyyy - HH:mm:ss' }}</p>
+                      <p>Date Accepted Order: {{ order.updated_at | date:'dd MMMM yyyy - HH:mm:ss' }}</p>
+                    </ng-container>
+                  </ng-container>
+
+                </div>
+                <table class="receipt-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 20%">Product Name</th>
+                      <th style="width: 20%">Seller Name</th>
+                      <th style="width: 10%">Color</th>
+                      <th style="width: 5%">Qty</th>
+                      <th style="width: 25%">Total Product Price</th>
+                      <th style="width: 20%">Refund</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let order of groupedOrders">
+                      <td style="width: 20%">
+                        <ul class="no-border">
+                          <ng-container *ngFor="let item of order.products">
+                            <ng-container *ngFor="let product of products">
+                              <ng-container
+                                *ngIf="product.id === item.product_id && product.seller_id === user_sellerId">
+
+                                <li>{{ product.name }}</li>
+
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+
+                        </ul>
+                      </td>
+                      <td style="width: 20%">
+                        <ul class="no-border">
+                          <ng-container *ngFor="let item of order.products">
+                            <ng-container *ngFor="let product of products">
+                              <ng-container
+                                *ngIf="product.id === item.product_id && product.seller_id === user_sellerId">
+                                <ng-container *ngFor="let seller of sellers">
+                                  <ng-container *ngIf="product.seller_id == seller.id">
+
+                                    <li>{{ seller.name }}</li>
+
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ul>
+                      </td>
+                      <td style="width: 10%">
+                        <ul class="no-border">
+                          <ng-container *ngFor="let item of order.products">
+                            <ng-container *ngFor="let product of products">
+                              <ng-container
+                                *ngIf="product.id === item.product_id && product.seller_id === user_sellerId">
+                                <li>{{ item.color }}</li>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ul>
+                      </td>
+                      <td style="width: 5%">
+                        <ul class="no-border">
+                          <ng-container *ngFor="let item of order.products">
+                            <ng-container *ngFor="let product of products">
+                              <ng-container
+                                *ngIf="product.id === item.product_id && product.seller_id === user_sellerId">
+                                <li>{{ item.quantity }}</li>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ul>
+                      </td>
+                      <td style="width: 25%">
+                        <ul class="no-border">
+                          <ng-container *ngFor="let item of order.products">
+                            <ng-container *ngFor="let product of products">
+                              <ng-container
+                                *ngIf="product.id === item.product_id && product.seller_id === user_sellerId">
+                                <li>{{ item.total_product_price}}</li>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ul>
+                      </td>
+                      <td style="width: 20%">
+                        <ul class="no-border">
+                          <ng-container *ngFor="let item of order.products">
+                            <ng-container *ngFor="let product of products">
+                              <ng-container
+                                *ngIf="product.id === item.product_id && product.seller_id === user_sellerId">
+                                <ng-container *ngIf="hasRefundsForItem(item.id); else noRefundTemplate">
+                                  <ul>
+                                    <ng-container *ngFor="let refund of getRefundsForItem(item.id)">
+                                      <li>{{ refund.status }}</li>
+                                    </ng-container>
+                                  </ul>
+                                </ng-container>
+                              </ng-container>
+                            </ng-container>
+                            <ng-template #noRefundTemplate>
+                              <ul>
+                                <li>No refund</li>
+                              </ul>
+                            </ng-template>
+                          </ng-container>
+                        </ul>
+                      </td>
+
+                    </tr>
+                    <tr *ngFor="let order of groupedOrders">
+                      <td colspan="6" class="receipt-total">Total Order Price:</td>
+
+                            <td class="receipt-total">{{ calculateTotal(order) | number:'1.2-2' }}</td>
+
+                    </tr>
+                    <tr *ngFor="let order of groupedOrders">
+                      <td colspan="6" class="receipt-total">Paid:</td>
+                      <td class="receipt-total">{{order.paid}}</td>
+                    </tr>
+                    <tr *ngFor="let order of groupedOrders">
+                      <td colspan="6" class="receipt-total">Status:</td>
+                      <td class="receipt-total">{{ order.status }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+              </div>
+            </ng-container>
+
+            <ng-template #showall>
+              <div class="pdf">
+                <div class="container" *ngFor="let order of groupedOrders">
+                  <p>Order Id: {{ order.order_id }}</p>
+                  <ng-container *ngFor="let user of users">
+                    <ng-container *ngIf="order.users == user.id">
+                      <p>User Email: {{ user.name }}</p>
+                      <p>User Phone: {{ user.phone }}</p>
+                      <p>Address: {{ user.address }}</p>
+                      <p>Date: {{ order.created_at | date:'dd MMMM yyyy - HH:mm:ss' }}</p>
+                      <p>Date Accepted Order: {{ order.updated_at | date:'dd MMMM yyyy - HH:mm:ss' }}</p>
+                    </ng-container>
+                  </ng-container>
+
+                </div>
+                <table class="receipt-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 20%">Product Name</th>
+                      <th style="width: 20%">Seller Name</th>
+                      <th style="width: 10%">Color</th>
+                      <th style="width: 5%">Qty</th>
+                      <th style="width: 25%">Total Product Price</th>
+                      <th style="width: 20%">Refund</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let order of groupedOrders">
+                      <td>
+                        <ul class="no-border">
+                          <ng-container *ngFor="let item of order.products">
+                            <ng-container *ngFor="let product of products">
+                              <ng-container *ngIf="product.id == item.product_id">
+                                <li>{{ product.name }}</li>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ul>
+                      </td>
+                      <td>
+                        <ul class="no-border">
+                          <ng-container *ngFor="let item of order.products">
+                            <ng-container *ngFor="let product of products">
+                              <ng-container *ngIf="product.id == item.product_id">
+                                <ng-container *ngFor="let seller of sellers">
+                                  <ng-container *ngIf="product.seller_id == seller.id">
+                                    <li>{{ seller.name }}</li>
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ul>
+                      </td>
+                      <td>
+                        <ul class="no-border">
+                          <li *ngFor="let item of order.products">{{ item.color }}</li>
+                        </ul>
+                      </td>
+                      <td>
+                        <ul class="no-border">
+                          <li *ngFor="let item of order.products">{{ item.quantity }}</li>
+                        </ul>
+                      </td>
+                      <td>
+                        <ul class="no-border">
+                          <li *ngFor="let item of order.products">{{ item.total_product_price}}</li>
+                        </ul>
+                      </td>
+                      <td>
+                        <ul class="no-border">
+                          <ng-container *ngFor="let item of order.products">
+                            <ng-container *ngIf="hasRefundsForItem(item.id); else noRefundTemplate">
+                              <ul>
+                                <ng-container *ngFor="let refund of getRefundsForItem(item.id)">
+                                  <li>{{ refund.status }}</li>
+                                </ng-container>
+                              </ul>
+                            </ng-container>
+                            <ng-template #noRefundTemplate>
+                              <ul>
+                                <li>No refund</li>
+                              </ul>
+                            </ng-template>
+                          </ng-container>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr *ngFor="let order of groupedOrders">
+                      <td colspan="6" class="receipt-total">Total Order Price:</td>
+                      <td class="receipt-total">{{ order.total_price | number:'1.2-2'}}</td>
+                    </tr>
+                    <tr *ngFor="let order of groupedOrders">
+                      <td colspan="6" class="receipt-total">Paid:</td>
+                      <td class="receipt-total">{{order.paid}}</td>
+                    </tr>
+                    <tr *ngFor="let order of groupedOrders">
+                      <td colspan="6" class="receipt-total">Status:</td>
+                      <td class="receipt-total">{{ order.status }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+              </div>
+            </ng-template>
+            <div class="container" *ngFor="let order of groupedOrders">
+              <button (click)="downloadReceipt(order.order_id)" class="btn btn-primary">Download Receipt as
+                PDF</button>
+            </div>
+
+            <div class="container" *ngIf="!user.seller_id">
+              <div class="row button_group">
+                <button class="btn btn-success col-md-4" (click)="onAccept()">Accept</button>
+                <button class="btn btn-danger col-md-4" (click)="onCancel()">Cancel</button>
+                <button class="btn btn-paid col-md-4" (click)="onPaid()">Paid</button>
+              </div>
+            </div>
+
+            <div class="container" *ngIf="!user.seller_id">
+              <div class="row button_group">
+                <form (ngSubmit)="onSubmit()">
+                  <div class="form-group">
+                    <label for="comment">Add Comment</label>
+                    <ng-container *ngFor="let order of groupedOrders">
+                      <textarea id="comment-{{order.id}}" [(ngModel)]="order.comment" class="form-control"
+                        name="comment-{{order.id}}" required></textarea>
+                    </ng-container>
+                  </div>
+                  <button type="submit" class="btn btn-primary mt-2">
+                    Submit Comment
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="row button_group">
+
+                  <div class="form-group">
+                    <label for="comment">User Required</label>
+                    <ng-container *ngFor="let order of groupedOrders">
+                      <textarea id="comment-{{order.id}}" [(ngModel)]="order.user_required" class="form-control"
+                        name="comment-{{order.id}}" required readonly></textarea>
+                    </ng-container>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

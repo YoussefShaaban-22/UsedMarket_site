@@ -1,0 +1,44 @@
+#add {
+  background-color: #F97300;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+#text{
+  color: #F97300;
+}
+.tags-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 5px;
+}
+
+.tags-input input {
+  border: none;
+  outline: none;
+  flex: 1;
+  min-width: 100px;
+}
+
+.tag {
+  background-color: #F97300;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+}
+.badge{
+  background-color: #F97300;
+
+}
+.remove-tag {
+  margin-left: 5px;
+  cursor: pointer;
+}

@@ -1,0 +1,383 @@
+.section-title {
+  text-align: left;
+  padding-top: 10px;
+}
+
+.section-title h2 {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.section-title h3 {
+  font-weight: bold;
+  color: #F97300;
+}
+
+.form-check {
+  margin: 0;
+}
+
+.form-check-input {
+  margin-right: 10px;
+}
+
+.form-check-label {
+  margin: 0;
+
+}
+
+.form-check-input:checked {
+  background-color: #F97300;
+  border-color: #F97300;
+}
+
+.form-color-input {
+  margin-right: 10px;
+}
+
+.form-color-label {
+  margin: 0;
+  width: 100%;
+  height: 40px !important;
+
+}
+
+.form-color-input:checked {
+  background-color: #F97300;
+  border-color: #F97300;
+}
+
+.card {
+  background-color: #E2DFD0;
+  border: 1px solid #F97300;
+  margin-bottom: 0px !important;
+}
+
+.categorycard {
+  height: auto !important;
+  font-size: 14px;
+  padding-top: 10px;
+}
+
+.categorycard h3 {
+  color: #F97300;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.category-item {
+  margin: 5px 0;
+}
+
+.category-item a {
+  text-decoration: none;
+}
+
+.category-item .form-check-label {
+  display: block;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.category-item .form-check-label:hover {
+  color: #F97300;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.card-header {
+  background-color: #E2DFD0;
+  height: 40px;
+  text-align: center;
+  justify-content: center;
+}
+
+.card-title {
+  color: #F97300;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 0;
+}
+
+.card-body-brand {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+}
+
+.card-body-brand.ng-enter {
+  max-height: 200px;
+  opacity: 1;
+}
+
+.card-body-brand.ng-leave {
+  max-height: 0;
+  opacity: 0;
+}
+
+.card-header-brand {
+  position: relative;
+  cursor: pointer;
+  padding: 10px;
+}
+
+
+.arrow-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transition: transform 0.3s ease;
+}
+
+.arrow-icon:before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.arrow-icon.expanded:before {
+  transform: rotate(-135deg);
+}
+
+.card-body-color {
+  padding: 0;
+}
+
+.color-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.color-square {
+  width: calc(20% - 10px);
+  padding-top: 5px;
+  padding-left: 3px;
+
+  padding-bottom: 2px;
+  position: relative;
+}
+
+.color-square input {
+  position: absolute;
+  opacity: 0;
+}
+
+.color-square label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.color-square label.selected {
+  border-color: black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
+.card-body-color.ng-enter {
+  max-height: 200px;
+  opacity: 1;
+}
+
+.card-body-color.ng-leave {
+  max-height: 0;
+  opacity: 0;
+}
+
+.card-header-color {
+  position: relative;
+  cursor: pointer;
+  padding: 10px;
+}
+
+
+.arrow-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transition: transform 0.3s ease;
+}
+
+.arrow-icon:before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: solid #000000;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.arrow-icon.expanded:before {
+  transform: rotate(-135deg);
+}
+
+.product_card {
+  margin-top: 10px;
+}
+
+.card {
+  background-color: #E2DFD0;
+
+}
+
+.card-subtitle {
+  margin: 0 !important;
+}
+
+.image {
+  width: 200px !important;
+  height: 100px;
+  object-fit: contain;
+}
+
+.cardimage {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background-color: #F97300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.card:hover .card-footer {
+  opacity: 1;
+  visibility: visible;
+}
+
+.product_name {
+  padding-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.product_price {
+  color: #F97300;
+}
+
+.card-bodyd.product_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  height: 150px !important;
+  text-align: center;
+}
+
+.product_image {
+  object-fit: contain;
+  width: 100% !important;
+  height: 180px !important;
+}
+
+.btn {
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  color: white !important;
+  background-color: #F97300;
+}
+
+.btn-footer {
+  color: white !important;
+  background-color: #F97300;
+}
+
+mat-slider {
+  width: 100%;
+  --mdc-slider-handle-color: #F97300 !important;
+  --mdc-slider-focus-handle-color: #F97300 !important;
+  --mdc-slider-hover-handle-color: #F97304 !important;
+  --mdc-slider-active-track-color: #F97300 !important;
+  --mdc-slider-inactive-track-color: #F97300 !important;
+  --mdc-slider-with-tick-marks-inactive-container-color: #F97300 !important;
+}
+
+.modal-title{
+  font-weight: bold;
+  color: black;
+  font-size: 18px;
+}
+.quantity-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.quantity-control {
+  display: flex;
+
+}
+
+.quantity-control button {
+  background-color: #f98d00;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.quantity-control button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.quantity-control input {
+  width: 50%;
+  text-align: center;
+  font-size: 16px;
+  padding: 5px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.btn-card  {
+  color: white !important;
+  background-color: #F97300;
+  margin: 10px 10px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.main_card{
+  margin-bottom: 30px;
+}

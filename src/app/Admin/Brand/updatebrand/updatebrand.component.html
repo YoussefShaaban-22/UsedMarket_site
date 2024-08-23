@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="./updatebrand.component.css">
+<app-header></app-header>
+<main id="main" class="main mb-0">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-2">
+              <h1 class="flex-grow-1" id="text">Update Brand</h1>
+            </div>
+            <form *ngIf="brand" class="row g-3 mt-2 border-top border-dark" (ngSubmit)="save()" #brandForm="ngForm"
+              method="POST" enctype="multipart/form-data">
+              <div class="col-md-6">
+                <label>Brand Name</label>
+                <input name="name" type="text" class="form-control" [(ngModel)]="brand.name" required id="inputNanme4"
+                  placeholder="Enter the Item Name" (ngModelChange)="clearError('name')">
+                <div *ngIf="formErrors.name" class="text-danger">
+                  <p *ngFor="let error of formErrors.name">{{ error }}</p>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Slug</label>
+                <input name="slug" type="text" class="form-control" id="inputNanme4" [(ngModel)]="brand.slug" required
+                  placeholder="Slug" (ngModelChange)="clearError('slug')">
+                <div *ngIf="formErrors.slug" class="text-danger">
+                  <p *ngFor="let error of formErrors.slug">{{ error }}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Upload Logo</label>
+                <input name="image" type="file" accept=".jpg,.jpeg,.png,.webp" class="form-control"
+                  (change)="onFileChangeLogo($event)" id="inputNanme4" (ngModelChange)="clearError('logo')">
+                <img *ngIf="brand.logo" [src]="brand.logo" alt="Brand Logo"
+                  style="max-width: 100px; max-height: 100px; object-fit: cover; margin-top: 10px;">
+                <div *ngIf="formErrors.logo" class="text-danger">
+                  <p *ngFor="let error of formErrors.logo">{{ error }}</p>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button name="btnSend" id="add" class="btn btn-primary w-25 mx-auto">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

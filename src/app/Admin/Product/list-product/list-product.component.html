@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="./list-product.component.css">
+<app-header></app-header>
+<main id="main" class="main">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <div *ngIf="message" class="alert alert-success">
+              {{ message }}
+            </div>
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1  mb-3" id="text">Products</h1>
+              <a href="/admin/product/create" class="btn btn-info mb-3" id="add">
+                Add New Product
+              </a>
+            </div>
+            <!-- Table with stripped rows -->
+            <table class="table rowtable ">
+              <thead>
+                <tr>
+                  <th style="width: 15%" scope="col">thumbnail image</th>
+                  <th style="width: 15%" scope="col">Name</th>
+                  <th scope="col">Added By</th>
+                  <th scope="col">Seller</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Feature Product</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <ng-container *ngIf="user.seller_id; else showall">
+                  <tr *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: page }">
+                    <ng-container *ngIf="product.seller_id==user.seller_id">
+                      <td><img [src]="product.thumbnail_image" alt=""
+                          style="max-width: 100px; max-height: 100px; object-fit: cover;"></td>
+                      <td>{{product.name}}</td>
+                      <ng-container *ngFor="let user of users">
+                        <ng-container *ngIf="user.id==product.user_id">
+                          <td>{{user.name}}</td>
+                        </ng-container>
+                      </ng-container>
+                      <ng-container *ngIf="product.seller_id; else noSeller">
+                        <ng-container *ngFor="let seller of sellers">
+                          <ng-container *ngIf="seller.id === product.seller_id">
+                            <td>{{ seller.name }}</td>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+
+                      <ng-template #noSeller>
+                        <td>No Seller</td>
+                      </ng-template>
+                      <td>{{product.status}}</td>
+                      <td>{{product.feature_product}}</td>
+                      <td>{{product.quantity}}</td>
+                      <td>
+                        <!-- <a href="{{route('Product.view',$item->slug)}}" class="text-warning"><i class="bi bi-eye"></i></i></a> -->
+                        <!-- <a (click)=" editproduct(product.id)" class="text-info"><i
+                            style="font-size: 25px; padding: 10px;" class="bi bi-pencil-square"></i></a> -->
+                        <a (click)=" deleteproduct(product.id)" class="text-danger"><i style="font-size: 25px;"
+                            class="bi bi-trash"></i></a>
+                      </td>
+
+                    </ng-container>
+                  </tr>
+                </ng-container>
+
+                <ng-template #showall>
+                  <tr *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: page }">
+                    <td><img [src]="product.thumbnail_image" alt=""
+                        style="max-width: 100px; max-height: 100px; object-fit: cover;"></td>
+                    <td>{{product.name}}</td>
+                    <ng-container *ngFor="let user of users">
+                      <ng-container *ngIf="user.id==product.user_id">
+                        <td>{{user.name}}</td>
+                      </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="product.seller_id; else noSeller">
+                      <ng-container *ngFor="let seller of sellers">
+                        <ng-container *ngIf="seller.id === product.seller_id">
+                          <td>{{ seller.name }}</td>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+
+                    <ng-template #noSeller>
+                      <td>No Seller</td>
+                    </ng-template>
+                    <td>{{product.status}}</td>
+                    <td>{{product.feature_product}}</td>
+                    <td>{{product.quantity}}</td>
+                    <td>
+                      <!-- <a href="{{route('Product.view',$item->slug)}}" class="text-warning"><i class="bi bi-eye"></i></i></a> -->
+                      <a (click)=" editproduct(product.id)" class="text-info"><i style="font-size: 25px; padding: 10px;"
+                          class="bi bi-pencil-square"></i></a>
+                      <a (click)=" deleteproduct(product.id)" class="text-danger"><i style="font-size: 25px;"
+                          class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+                </ng-template>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>

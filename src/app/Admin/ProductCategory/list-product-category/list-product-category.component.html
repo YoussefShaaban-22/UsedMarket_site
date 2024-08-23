@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="./list-product-category.component.css">
+
+<app-header></app-header>
+<main id="main" class="main">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-2 mb-2 border-bottom border-dark">
+              <h1 class="flex-grow-1 mb-2" id="text">Product Category</h1>
+              <a href="admin/productcategory/create" id="add" class="btn btn-info mb-3">
+                Add New Product Category
+              </a>
+            </div>
+            <!-- Table with stripped rows -->
+            <table class="table rowtable ">
+              <thead>
+                <tr>
+                  <th style="width: 30%" scope="col">Image</th>
+                  <th style="width: 30%" scope="col">Name</th>
+                  <th style="width: 30%" scope="col">Parent Category</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let productcategory of productcategories">
+                  <td style="width: 30%">
+                    <img [src]="productcategory.image" alt="Blog Image"
+                      style="max-width: 100px; max-height: 100px; object-fit: cover;">
+                  </td>
+                  <td style="width: 30%">{{ productcategory.name }}</td>
+                  <td style="width: 30%">{{ getParentCategoryName(productcategory.parent_id) }}</td>
+                  <td>
+                    <a (click)="editproductcategory(productcategory.id)" class="text-info"><i style="font-size: 25px; padding: 10px;" class="bi bi-pencil-square"></i></a>
+                    <a (click)="deleteproductcategory(productcategory.id)" class="text-danger"><i style="font-size: 25px;" class="bi bi-trash"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

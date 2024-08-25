@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="./view-privacy-policy.component.css">
+<app-header></app-header>
+
+<main id="main" class="main">
+
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body" *ngFor="let privacypolicy of privacypolicy">
+
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1 mb-3" id="text">Privacy Policy Page</h1>
+              <a class="btn btn-info mb-3" id="add" (click)="editprivacypolicy(privacypolicy.id)">
+                Edit Privacy Policy Page
+              </a>
+            </div>
+            <!-- Table with stripped rows -->
+            <table class="table rowtable ">
+              <thead>
+                <tr>
+                  <th style="width: 25%" scope="col">Content</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <span [innerHTML]="privacypolicy.content"> </span>
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

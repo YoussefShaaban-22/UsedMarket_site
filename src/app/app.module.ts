@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSliderModule} from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './Auth/register/register.component';
@@ -70,6 +71,22 @@ import { ListInquiryComponent } from './Admin/Inquiry/list-inquiry/list-inquiry.
 import { ListOrderComponent } from './Admin/Order/list-order/list-order.component';
 import { ViewOrderComponent } from './Admin/Order/view-order/view-order.component';
 import { ViewRefundComponent } from './Admin/Refund/view-refund/view-refund.component';
+import { ViewInfoComponent } from './Admin/Footer/view-info/view-info.component';
+import { UpdateInfoComponent } from './Admin/Footer/update-info/update-info.component';
+import { SocialMediaComponent } from './Admin/Footer/social-media/social-media.component';
+import { UpdatesocialComponent } from './Admin/Footer/updatesocial/updatesocial.component';
+import { UpdateReturnsPolicyComponent } from './Admin/Pages/update-returns-policy/update-returns-policy.component';
+import { ViewReturnsPolicyComponent } from './Admin/Pages/view-returns-policy/view-returns-policy.component';
+import { ViewTermsServiceComponent } from './Admin/Pages/view-terms-service/view-terms-service.component';
+import { UpdateTermsServiceComponent } from './Admin/Pages/update-terms-service/update-terms-service.component';
+import { UpdatePrivacyPolicyComponent } from './Admin/Pages/update-privacy-policy/update-privacy-policy.component';
+import { ViewPrivacyPolicyComponent } from './Admin/Pages/view-privacy-policy/view-privacy-policy.component';
+import { ViewShippingpolicyComponent } from './Admin/Pages/view-shippingpolicy/view-shippingpolicy.component';
+import { UpdateShippingpolicyComponent } from './Admin/Pages/update-shippingpolicy/update-shippingpolicy.component';
+import { ReturnpolicyComponent } from './EndUser/Pages/returnpolicy/returnpolicy.component';
+import { PrivacypolicyComponent } from './EndUser/Pages/privacypolicy/privacypolicy.component';
+import { TermsofserviceComponent } from './EndUser/Pages/termsofservice/termsofservice.component';
+import { ShippingpolicyComponent } from './EndUser/Pages/shippingpolicy/shippingpolicy.component';
 
 @NgModule({
   declarations: [
@@ -133,7 +150,23 @@ import { ViewRefundComponent } from './Admin/Refund/view-refund/view-refund.comp
     ListInquiryComponent,
     ListOrderComponent,
     ViewOrderComponent,
-    ViewRefundComponent
+    ViewRefundComponent,
+    ViewInfoComponent,
+    UpdateInfoComponent,
+    SocialMediaComponent,
+    UpdatesocialComponent,
+    UpdateReturnsPolicyComponent,
+    ViewReturnsPolicyComponent,
+    ViewTermsServiceComponent,
+    UpdateTermsServiceComponent,
+    UpdatePrivacyPolicyComponent,
+    ViewPrivacyPolicyComponent,
+    ViewShippingpolicyComponent,
+    UpdateShippingpolicyComponent,
+    ReturnpolicyComponent,
+    PrivacypolicyComponent,
+    TermsofserviceComponent,
+    ShippingpolicyComponent
   ],
   imports: [
     BrowserModule,
@@ -146,6 +179,7 @@ import { ViewRefundComponent } from './Admin/Refund/view-refund/view-refund.comp
     MatSliderModule,
     BrowserAnimationsModule,
     NgxPaginationModule,
+    CanvasJSAngularChartsModule,
   ],
   providers: [
     provideClientHydration()

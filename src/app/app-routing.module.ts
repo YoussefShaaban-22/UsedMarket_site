@@ -57,6 +57,22 @@ import { ListInquiryComponent } from './Admin/Inquiry/list-inquiry/list-inquiry.
 import { ListOrderComponent } from './Admin/Order/list-order/list-order.component';
 import { ViewOrderComponent } from './Admin/Order/view-order/view-order.component';
 import { ViewRefundComponent } from './Admin/Refund/view-refund/view-refund.component';
+import { ViewInfoComponent } from './Admin/Footer/view-info/view-info.component';
+import { UpdateInfoComponent } from './Admin/Footer/update-info/update-info.component';
+import { SocialMediaComponent } from './Admin/Footer/social-media/social-media.component';
+import { UpdatesocialComponent } from './Admin/Footer/updatesocial/updatesocial.component';
+import { UpdateReturnsPolicyComponent } from './Admin/Pages/update-returns-policy/update-returns-policy.component';
+import { ViewReturnsPolicyComponent } from './Admin/Pages/view-returns-policy/view-returns-policy.component';
+import { ViewTermsServiceComponent } from './Admin/Pages/view-terms-service/view-terms-service.component';
+import { UpdateTermsServiceComponent } from './Admin/Pages/update-terms-service/update-terms-service.component';
+import { UpdatePrivacyPolicyComponent } from './Admin/Pages/update-privacy-policy/update-privacy-policy.component';
+import { ViewPrivacyPolicyComponent } from './Admin/Pages/view-privacy-policy/view-privacy-policy.component';
+import { ViewShippingpolicyComponent } from './Admin/Pages/view-shippingpolicy/view-shippingpolicy.component';
+import { UpdateShippingpolicyComponent } from './Admin/Pages/update-shippingpolicy/update-shippingpolicy.component';
+import { ReturnpolicyComponent } from './EndUser/Pages/returnpolicy/returnpolicy.component';
+import { PrivacypolicyComponent } from './EndUser/Pages/privacypolicy/privacypolicy.component';
+import { TermsofserviceComponent } from './EndUser/Pages/termsofservice/termsofservice.component';
+import { ShippingpolicyComponent } from './EndUser/Pages/shippingpolicy/shippingpolicy.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -69,6 +85,10 @@ const routes: Routes = [
   { path: 'Mycart', component: ViewCartComponent },
   { path: 'Myorder', component: MyorderComponent },
   { path: 'paymethod', component: ChooseWayPaidComponent },
+  { path: 'Return-policy', component: ReturnpolicyComponent },
+  { path: 'Privacy-policy', component: PrivacypolicyComponent },
+  { path: 'Terms-of-service', component: TermsofserviceComponent },
+  { path: 'Shipping-policy', component: ShippingpolicyComponent },
   { path: 'brand/:slug', component: BrandProductComponent },
   { path: 'brand', component: ViewBrandComponent },
   { path: 'seller/:slug', component: SellerProductComponent },
@@ -116,6 +136,18 @@ const routes: Routes = [
   { path: 'admin/AllOrders', component: ListOrderComponent, canActivate: [AuthGuardService] },
   { path: 'admin/AllRefund', component: ViewRefundComponent, canActivate: [AuthGuardService] },
   { path: 'admin/Order/:id', component: ViewOrderComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/information/show', component: ViewInfoComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/information/update/:id', component: UpdateInfoComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/socialMedia/show', component: SocialMediaComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/socialMedia/update/:id', component: UpdatesocialComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/returnpolicy/show', component: ViewReturnsPolicyComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/returnpolicy/update/:id', component: UpdateReturnsPolicyComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/shippingpolicy/show', component: ViewShippingpolicyComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/shippingpolicy/update/:id', component: UpdateShippingpolicyComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/privacypolicy/show', component: ViewPrivacyPolicyComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/privacypolicy/update/:id', component: UpdatePrivacyPolicyComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/termsservice/show', component: ViewTermsServiceComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/termsservice/update/:id', component: UpdateTermsServiceComponent, canActivate: [AuthGuardService] },
 
 ];
 

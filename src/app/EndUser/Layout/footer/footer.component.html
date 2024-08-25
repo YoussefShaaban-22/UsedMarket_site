@@ -3,47 +3,48 @@
 <!-- ======= Footer ======= -->
 <footer id="footer_main">
   <div class="footer-top">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-3 col-md-6">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-info">
+            <h2>About company</h2>
+            <p class="about_company" *ngFor="let info of informations">
+              {{info.about_company}}
+            </p>
 
-                  <div class="footer-info">
-                      <img  alt="" style="width:100%">
-                      <p>
-
-                      </p>
-
-                      Phone:<a href="tel:"></a> -
-                      <a href="tel:+2011123402232 ">+2011123402232 </a> <br>
-                      Email:<a href="mailto:"></a>
-
-                      <div class="social-links mt-3">
-
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-2 col-md-6 footer-links">
-                <h4>Usefull </h4>
-              </div>
-              <div class="col-lg-3 col-md-6 footer-links">
-                  <h4>Categories</h4>
-                  <div class="mobile-menu-wrap mobile-header-border">
-                      <nav>
-                          <ul class="mobile-menu">
-                              <ul>
-
-                              </ul>
-
-                          </ul>
-                      </nav>
-                      <!-- mobile menu end -->
-                  </div>
-              </div>
-              <div class="col-lg-4 col-md-6 footer-newsletter">
-
-              </div>
           </div>
+        </div>
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Category</h4>
+          <ul>
+            <ng-container *ngFor="let category of productcategories">
+              <li *ngIf="category.parent_id==0"><a [href]="['/category/'+category.slug]">{{category.name}}</a></li>
+            </ng-container>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Contact Us</h4>
+          <ul>
+
+            <li><a [href]="['/Return-policy']">Refund & Returns Policy</a></li>
+            <li><a [href]="['/Privacy-policy']">Terms Of Service</a></li>
+            <li><a [href]="['/Terms-of-service']">Privacy Policy</a></li>
+            <li><a [href]="['/Shipping-policy']">Shipping policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Social Media</h4>
+          <div class="social-links ">
+            <ng-container *ngFor="let social of socialLinks">
+              <a *ngIf="social.status=='Enable'" class="social" [href]="[social.link]"><span [innerHTML]="social.name"></span></a>
+            </ng-container>
+          </div>
+        </div>
+
       </div>
+    </div>
   </div>
 </footer>
 <!-- End Footer -->

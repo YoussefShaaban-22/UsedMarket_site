@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="./view-terms-service.component.css">
+<app-header></app-header>
+
+<main id="main" class="main">
+
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body" *ngFor="let termsservice of termsservice">
+
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1 mb-3" id="text">Terms Of Service Page</h1>
+              <a class="btn btn-info mb-3" id="add" (click)="edittermsservice(termsservice.id)">
+                Edit Terms Of Service Page
+              </a>
+            </div>
+            <!-- Table with stripped rows -->
+            <table class="table rowtable ">
+              <thead>
+                <tr>
+                  <th style="width: 25%" scope="col">Content</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <span [innerHTML]="termsservice.content"> </span>
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

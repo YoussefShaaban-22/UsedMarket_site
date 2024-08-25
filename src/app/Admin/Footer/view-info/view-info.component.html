@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="./view-info.component.css">
+
+<app-header></app-header>
+
+<main id="main" class="main">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1 mb-3" id="text">Information</h1>
+            </div>
+            <!-- Table with stripped rows -->
+            <table class="table rowtable ">
+              <thead>
+                <tr>
+                  <th style="width: 30%" scope="col">Logo</th>
+                  <th style="width: 50%" scope="col">About Company</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let information of informations">
+                  <td style="width: 30%">
+                    <img [src]="information.logo" alt="seller Image"
+                      style="max-width: 200px; max-height: 200px; object-fit: cover;">
+                  </td>
+                  <td style="width: 50%;">{{ information.about_company }}</td>
+                  <td>
+                    <a (click)="editinformation(information.id)" class="text-info"><i style="font-size: 25px; padding: 10px;" class="bi bi-pencil-square"></i></a>
+                  </td>
+                </tr>
+
+
+              </tbody>
+
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

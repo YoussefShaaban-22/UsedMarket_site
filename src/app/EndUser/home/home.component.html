@@ -420,7 +420,7 @@
           <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
               <ng-container *ngFor="let homeslider of homesliders">
-                <div class="carousel-item active" id="hero1-image" *ngIf="homeslider.order==1"
+                <div class="carousel-item active" id="hero1-image" *ngIf="homeslider.order==3"
                   [ngStyle]="{'background-image': 'url(' +homeslider.slider_image + ')'}">
                 </div>
               </ng-container>
@@ -435,7 +435,7 @@
           <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
               <ng-container *ngFor="let homeslider of homesliders">
-                <div class="carousel-item active" *ngIf="homeslider.order==2"
+                <div class="carousel-item active" *ngIf="homeslider.order==4"
                   [ngStyle]="{'background-image': 'url(' +homeslider.slider_image + ')'}">
                 </div>
               </ng-container>

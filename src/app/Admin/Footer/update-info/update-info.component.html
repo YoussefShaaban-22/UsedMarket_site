@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="./update-info.component.css">
+
+<app-header></app-header>
+<main id="main" class="main mb-0">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3">
+              <h1 class="flex-grow-1" id="text">Add New Image</h1>
+            </div>
+            <form class="row g-3 mt-2 border-top border-dark" (ngSubmit)="save()" #homesliderForm="ngForm" method="POST"
+              enctype="multipart/form-data">
+              <div class="col-md-12">
+                <label>Upload Image</label>
+                <input name="image" type="file" accept=".jpg,.jpeg,.png,.webp" class="form-control"
+                  (change)="onFileChangeLogo($event)" id="inputNanme4" (ngModelChange)="clearError('logo')">
+                <img *ngIf="information.logo" [src]="information.logo" alt="slider image"
+                  style="max-width: 100px; max-height: 100px; object-fit: cover; margin-top: 10px;">
+                <div *ngIf="formErrors.logo" class="text-danger">
+                  <p *ngFor="let error of formErrors.logo">{{ error }}</p>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <label>About Company</label>
+                <textarea name="order" type="text" [(ngModel)]="information.about_company" required class="form-control"
+                  id="inputNanme4" (ngModelChange)="clearError('about_company')"> </textarea>
+                <div *ngIf="formErrors.about_company" class="text-danger">
+                  <p *ngFor="let error of formErrors.about_company">{{ error }}</p>
+                </div>
+              </div>
+              <div class="text-center">
+                <button name="btnSend" id="add" class="btn btn-primary w-25 mx-auto">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

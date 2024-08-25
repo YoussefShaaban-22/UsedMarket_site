@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="./social-media.component.css">
+
+<app-header></app-header>
+
+<main id="main" class="main">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3 mb-3 border-bottom border-dark">
+              <h1 class="flex-grow-1 mb-3" id="text">Social Media</h1>
+            </div>
+            <!-- Table with stripped rows -->
+            <table class="table rowtable ">
+              <thead>
+                <tr>
+                  <th style="width: 5%" scope="col">Name</th>
+                  <th style="width: 60%" scope="col">Social Link</th>
+                  <th style="width: 10%" scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let socialLink of socialLinks">
+                  <td style="width: 5%"> <span class="icon" [innerHTML]="socialLink.name"></span>
+                  </td>
+                  <td style="width: 60%;">{{ socialLink.link }}</td>
+                  <td style="width: 10%;">{{ socialLink.status }}</td>
+                  <td>
+                    <a (click)="editsocial(socialLink.id)" class="text-info"><i style="font-size: 25px; padding: 10px;"
+                        class="bi bi-pencil-square"></i></a>
+                  </td>
+                </tr>
+
+
+              </tbody>
+
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="./updatesocial.component.css">
+
+<app-header></app-header>
+<main id="main" class="main mb-0">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3">
+              <h1 class="flex-grow-1" id="text">Add New Image</h1>
+            </div>
+            <form class="row g-3 mt-2 border-top border-dark" (ngSubmit)="save()" #homesliderForm="ngForm" method="POST"
+              enctype="multipart/form-data">
+
+              <div class="col-md-12">
+                <label>Social Name Icon</label>
+                <input name="name" type="text" [(ngModel)]="socialLink.name" required class="form-control"
+                  id="inputNanme4" readonly>
+              </div>
+              <div class="col-md-12">
+                <label>Social Link</label>
+                <input name="link" type="text" [(ngModel)]="socialLink.link" required class="form-control"
+                  id="inputNanme4" (ngModelChange)="clearError('link')">
+                <div *ngIf="formErrors.link" class="text-danger">
+                  <p *ngFor="let error of formErrors.link">{{ error }}</p>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <label>Social Status</label>
+                  <select name="status" id="" [(ngModel)]="socialLink.status" class="form-select" (ngModelChange)="clearError('status')">
+                      <option value="Enable">Enable</option>
+                      <option value="Disable">Disable</option>
+                  </select>
+                <div *ngIf="formErrors.status" class="text-danger">
+                  <p *ngFor="let error of formErrors.status">{{ error }}</p>
+                </div>
+              </div>
+              <div class="text-center">
+                <button name="btnSend" id="add" class="btn btn-primary w-25 mx-auto">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

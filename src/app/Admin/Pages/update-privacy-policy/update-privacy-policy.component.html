@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="./update-privacy-policy.component.css">
+<app-header></app-header>
+<main id="main" class="main mb-0">
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex mt-3">
+              <h1 class="flex-grow-1" id="text">Update Privacy Policy</h1>
+            </div>
+            <form *ngIf="privacypolicy" class="row g-3 mt-2 border-top border-dark" (ngSubmit)="save()" #blogForm="ngForm"
+              method="POST" enctype="multipart/form-data">
+              <div class="col-md-12">
+                <label>Content</label>
+                <textarea #descriptionEditor name="description" class="form-control mysummernote"required></textarea>
+
+              </div>
+              <div class="text-center">
+                <button name="btnSend" id="add" class="btn btn-primary w-25 mx-auto">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

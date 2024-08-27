@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="./chat.component.css">
+
+<app-navbar></app-navbar>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Inbox Section -->
+    <div class="col-3 inbox-section">
+      <h5>Inbox</h5>
+      <ul class="list-group">
+        <li *ngFor="let chat of chats" class="list-group-item name-inbox" (click)="openChat(chat.id)">
+          <span>{{ chat.otherUserName || 'Loading...' }}</span>
+          <p *ngIf="chat.lastMessageText=='No messages yet';else message">{{ chat.lastMessageText }}</p>
+          <ng-template #message>
+            <p>Last message: {{ chat.lastMessageText }}</p>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Chat Section -->
+    <div class="col-9 chat-section">
+      <h1 *ngIf="currentChatUser">{{ currentChatUser.name }}</h1>
+      <div class="messages" *ngIf="currentChatMessages">
+        <div *ngFor="let message of currentChatMessages" class="message-container">
+          <div class="message"
+            [ngClass]="{'message-sent': message.sender === userId, 'message-received': message.sender !== userId}">
+            <div class="message-sender" *ngIf="message.sender !== userId; else user">
+              {{ currentChatUser.name }}
+            </div>
+            <ng-template #user>
+              <p>You</p>
+            </ng-template>
+            <div class="message-content">
+              <img *ngIf="message.image" [src]="message.image" alt="slider image" class="image_chat">
+              <p *ngIf="message.message">{{ message.message }}</p>
+              <span class="message-time">{{ message.created_at | date:'HH:mm:ss' }}</span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="currentChatMessages">
+        <textarea [(ngModel)]="newMessage" class="form-control" placeholder="Type your message..."></textarea>
+
+        <input name="image" type="file" accept=".jpg,.jpeg,.png,.webp" class="form-control"
+               (change)="onFileChangeLogo($event)" id="inputNanme4">
+
+        <img *ngIf="newimage" [src]="newimage" alt="Selected image"
+             style="max-width: 100%; max-height: 200px; object-fit: contain; margin-top: 10px;">
+
+        <button (click)="sendMessage()" type="button" class="btn btn-primary mt-2" id="add">Send</button>
+
+        <div *ngIf="showError" class="alert alert-warning mt-2">
+          Please enter a message or select an image before sending.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-footer></app-footer>

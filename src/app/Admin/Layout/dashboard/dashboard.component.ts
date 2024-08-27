@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { AnalysisorderService, OrderStats, UserOrderStats, ProductOrderStats, SellerOrderStats } from '../../../apiservices/analysisorder.service';
-import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { AuthApiFunctionService } from '../../../apiservices/auth-api-function.service';
 import { user } from '../../../models/user';
 import { seller } from '../../../models/seller';

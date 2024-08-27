@@ -73,6 +73,9 @@ import { ReturnpolicyComponent } from './EndUser/Pages/returnpolicy/returnpolicy
 import { PrivacypolicyComponent } from './EndUser/Pages/privacypolicy/privacypolicy.component';
 import { TermsofserviceComponent } from './EndUser/Pages/termsofservice/termsofservice.component';
 import { ShippingpolicyComponent } from './EndUser/Pages/shippingpolicy/shippingpolicy.component';
+import { ChatComponent } from './EndUser/Chat/chat/chat.component';
+import { ChatMessageComponent } from './EndUser/Chat/chat-message/chat-message.component';
+import { ChatadminComponent } from './Admin/chat/chatadmin/chatadmin.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -89,6 +92,8 @@ const routes: Routes = [
   { path: 'Privacy-policy', component: PrivacypolicyComponent },
   { path: 'Terms-of-service', component: TermsofserviceComponent },
   { path: 'Shipping-policy', component: ShippingpolicyComponent },
+  { path: 'chat', component: ChatComponent },
+  { path: 'chat-message', component: ChatMessageComponent },
   { path: 'brand/:slug', component: BrandProductComponent },
   { path: 'brand', component: ViewBrandComponent },
   { path: 'seller/:slug', component: SellerProductComponent },
@@ -148,6 +153,7 @@ const routes: Routes = [
   { path: 'admin/privacypolicy/update/:id', component: UpdatePrivacyPolicyComponent, canActivate: [AuthGuardService] },
   { path: 'admin/termsservice/show', component: ViewTermsServiceComponent, canActivate: [AuthGuardService] },
   { path: 'admin/termsservice/update/:id', component: UpdateTermsServiceComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/chats', component: ChatadminComponent, canActivate: [AuthGuardService] },
 
 ];
 

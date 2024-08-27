@@ -86,10 +86,8 @@
             <form (ngSubmit)="onSubmit(groupedOrder.order_id)">
               <div class="form-group">
                 <label for="comment"><b> Add Required </b></label>
-                <ng-container *ngFor="let order of groupedOrders">
-                  <textarea id="user_required-{{order.id}}" [(ngModel)]="groupedOrder.user_required" class="form-control"
-                    name="user_required-{{order.id}}" required></textarea>
-                </ng-container>
+                  <textarea id="user_required" [(ngModel)]="groupedOrder.user_required" class="form-control"
+                    name="user_required" required></textarea>
               </div>
               <button type="submit" class="btn btn-primary mt-2">
                 Submit Required

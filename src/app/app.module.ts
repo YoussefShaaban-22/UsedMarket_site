@@ -87,6 +87,10 @@ import { ReturnpolicyComponent } from './EndUser/Pages/returnpolicy/returnpolicy
 import { PrivacypolicyComponent } from './EndUser/Pages/privacypolicy/privacypolicy.component';
 import { TermsofserviceComponent } from './EndUser/Pages/termsofservice/termsofservice.component';
 import { ShippingpolicyComponent } from './EndUser/Pages/shippingpolicy/shippingpolicy.component';
+import { ChatComponent } from './EndUser/Chat/chat/chat.component';
+import { ChatMessageComponent } from './EndUser/Chat/chat-message/chat-message.component';
+import { ChatadminComponent } from './Admin/chat/chatadmin/chatadmin.component';
+import { ChatService } from './apiservices/chat.service';
 
 @NgModule({
   declarations: [
@@ -166,7 +170,10 @@ import { ShippingpolicyComponent } from './EndUser/Pages/shippingpolicy/shipping
     ReturnpolicyComponent,
     PrivacypolicyComponent,
     TermsofserviceComponent,
-    ShippingpolicyComponent
+    ShippingpolicyComponent,
+    ChatComponent,
+    ChatMessageComponent,
+    ChatadminComponent
   ],
   imports: [
     BrowserModule,
@@ -182,7 +189,8 @@ import { ShippingpolicyComponent } from './EndUser/Pages/shippingpolicy/shipping
     CanvasJSAngularChartsModule,
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    ChatService
   ],
   bootstrap: [AppComponent]
 })

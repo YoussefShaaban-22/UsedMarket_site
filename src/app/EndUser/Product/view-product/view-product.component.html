@@ -73,7 +73,8 @@
                     <ng-container *ngFor="let discount of product.Product_discount">
                       <div class="col-md-4">
                         <span>{{discount.quantity}} - {{discount.To_quantity}} piece</span> <br>
-                        <span> <b> Price: {{product.Product.price - (discount.discount * product.Product.price)}} EGP </b></span>
+                        <span> <b> Price: {{product.Product.price - (discount.discount * product.Product.price)}} EGP
+                          </b></span>
                       </div> <br> <br>
                     </ng-container>
                   </ng-container>
@@ -180,6 +181,11 @@
           </div>
           <div class="card-bodyd" id="card-seller">
             <h5 id="seller-name">{{ seller.name }}</h5>
+            <ng-container *ngFor="let user of users">
+              <ng-container *ngIf="user.seller_id==seller.id && user.user_type=='admin'">
+                <button type="button" class="btn" (click)="initiateChat(user.id)">Chat with {{ user.name }}</button>
+              </ng-container>
+            </ng-container>
           </div>
         </div>
       </div>

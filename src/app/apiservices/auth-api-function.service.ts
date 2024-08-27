@@ -49,6 +49,10 @@ export class AuthApiFunctionService {
     return this.http.get<user>(`http://127.0.0.1:8000/api/UserByEmail/${email}`)
   }
 
+  getUserByID(ID: any) {
+    return this.http.get<user>(`http://127.0.0.1:8000/api/UserById/${ID}`)
+  }
+
   register(object: any) {
     return this.http.post("http://127.0.0.1:8000/api/register", object)
   }

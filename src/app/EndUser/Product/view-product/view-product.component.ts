@@ -21,6 +21,8 @@ import { inquiry } from '../../../models/inquiry';
 import { NgForm } from '@angular/forms';
 import { FeedbackService } from '../../../apiservices/feedback.service';
 import { feedback } from '../../../models/feedback';
+import { user } from '../../../models/user';
+import { ChatService } from '../../../apiservices/chat.service';
 
 @Component({
   selector: 'app-view-product',
@@ -42,6 +44,7 @@ export class ViewProductComponent {
   products: product[] = [];
   brand: brand[] = [];
   color: color[] = [];
+  users: user[] = [];
   feedbacks: feedback[] = [];
   newFeedback: feedback = new feedback();
   seller: any = new seller();
@@ -60,7 +63,8 @@ export class ViewProductComponent {
   constructor(private catserv: ProductcategoryService, private productserv: ProductService,
     private brandserv: BrandService, private sellerserv: SellerService, private colorserv: ColorService,
     private cartserv: CartService, private inquiryserv: InquiryService, private feedbackserv: FeedbackService,
-    private activeRoute: ActivatedRoute, private router: Router, private Authserv: AuthApiFunctionService) {
+    private activeRoute: ActivatedRoute, private router: Router, private Authserv: AuthApiFunctionService,
+    private chatService: ChatService) {
     const userData = this.Authserv.getItem('user');
     if (userData) {
       this.user = JSON.parse(userData);
@@ -126,6 +130,15 @@ export class ViewProductComponent {
       }
     );
 
+    this.Authserv.getuser().subscribe(
+      (data: user[]) => {
+        this.users = data;
+      },
+      error => {
+        console.error('Error fetching brands', error);
+      }
+    );
+
     this.colorserv.getcolor().subscribe(
       (data: color[]) => {
         this.color = data;
@@ -151,6 +164,12 @@ export class ViewProductComponent {
     );
     this.addEntry();
 
+  }
+
+  initiateChat(userId: number): void {
+    this.chatService.getOrCreateChat(userId, this.user_id).subscribe(chat => {
+      this.router.navigate(['/chat'], { queryParams: { chatId: chat.id } });
+    });
   }
   addEntry(): void {
     this.entries.push({ quantity: 1, selectedColor: '' });

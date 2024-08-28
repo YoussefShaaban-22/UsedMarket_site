@@ -181,9 +181,10 @@
           </div>
           <div class="card-bodyd" id="card-seller">
             <h5 id="seller-name">{{ seller.name }}</h5>
-            <ng-container *ngFor="let user of users">
-              <ng-container *ngIf="user.seller_id==seller.id && user.user_type=='admin'">
-                <button type="button" class="btn" (click)="initiateChat(user.id)">Chat with {{ user.name }}</button>
+            <ng-container *ngFor="let userseller of users">
+              <ng-container *ngIf="userseller.seller_id==seller.id && userseller.user_type=='admin'">
+                <button type="button" class="btn" (click)="initiateChat(userseller.id)">Chat with {{ userseller.name
+                  }}</button>
               </ng-container>
             </ng-container>
           </div>
@@ -275,7 +276,8 @@
       <div class="clients-slider swiper">
         <div class="swiper-wrapper align-items-center">
           <ng-container *ngFor="let relatedproduct of products">
-            <div class="swiper-slide card-product" *ngIf="relatedproduct.category_id == product.Product.category_id">
+            <div class="swiper-slide card-product" *ngIf="relatedproduct.category_id == product.Product.category_id
+                  &&product.Product.status === 'publish'">
               <div class="cardimage">
                 <a href="/product/{{relatedproduct.slug}}">
                   <img [src]="relatedproduct.thumbnail_image" class="card-img-top product_image" alt="...">

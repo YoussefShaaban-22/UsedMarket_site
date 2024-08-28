@@ -67,95 +67,99 @@
         </div>
         <div class="container">
           <div class="row main_card">
-            <div class="col-lg-4 col-md-12 product_card" *ngFor="let product of filteredproduct | paginate: { itemsPerPage: 12, currentPage: page }">
-              <div class="card">
-                <div class="cardimage">
-                  <a href="/product/{{product.slug}}">
-                    <img [src]="product.thumbnail_image" class="card-img-top product_image" alt="...">
-                  </a>
-                  <div class="card-footer">
-                    <a type="button" class="btn-footer" data-bs-toggle="modal"
-                      [attr.data-bs-target]="'#cart'+product.id">
-                      Add to Cart
+            <ng-container *ngFor="let product of filteredproduct | paginate: { itemsPerPage: 12, currentPage: page }">
+              <div class="col-lg-4 col-md-12 product_card" *ngIf="product.status === 'publish'">
+                <div class="card">
+                  <div class="cardimage">
+                    <a href="/product/{{product.slug}}">
+                      <img [src]="product.thumbnail_image" class="card-img-top product_image" alt="...">
+                    </a>
+                    <div class="card-footer">
+                      <a type="button" class="btn-footer" data-bs-toggle="modal"
+                        [attr.data-bs-target]="'#cart'+product.id">
+                        Add to Cart
+                      </a>
+                    </div>
+                  </div>
+                  <div class="card-bodyd product_info">
+                    <a href="/product/{{product.slug}}">
+                      <h5 class="card-name product_name">{{ product.name }}</h5>
+                    </a>
+                    <h3 class="product_price">{{ product.price }} EGP</h3>
+                    <a class="btn" href="/product/{{product.slug}}">
+                      See Details
                     </a>
                   </div>
                 </div>
-                <div class="card-bodyd product_info">
-                  <a href="/product/{{product.slug}}">
-                    <h5 class="card-name product_name">{{ product.name }}</h5>
-                  </a>
-                  <h3 class="product_price">{{ product.price }} EGP</h3>
-                  <a class="btn" href="/product/{{product.slug}}">
-                    See Details
-                  </a>
-                </div>
-              </div>
-              <!-- Modal Cart -->
-              <div class="modal fade" [attr.id]="'cart'+product.id" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="staticBackdropLabel">Add product in Cart</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form (ngSubmit)="onSubmit(product.id,product.price,product.seller_id)" #form="ngForm">
+                <!-- Modal Cart -->
+                <div class="modal fade" [attr.id]="'cart'+product.id" data-bs-backdrop="static" data-bs-keyboard="false"
+                  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Add product in Cart</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form (ngSubmit)="onSubmit(product.id,product.price,product.seller_id)" #form="ngForm">
 
-                        <div class="col-md-12 mb-3">
-                          <label class="form-label">Product Name</label>
-                          <div class="quantity-control">
-                            <input type="text" [value]="product.name" readonly name="quantity" />
-                          </div>
-                        </div>
-                        <div class="row" *ngFor="let entry of entries; let i = index">
-                          <div class="col-md-4 mb-3">
-                            <label for="quantity-{{ i }}" class="form-label">Quantity</label>
+                          <div class="col-md-12 mb-3">
+                            <label class="form-label">Product Name</label>
                             <div class="quantity-control">
-                              <button type="button" (click)="decreaseQuantityCart(i)"
-                                [disabled]="entry.quantity <= 1">-</button>
-                              <input type="number" [(ngModel)]="entry.quantity" id="quantity-{{ i }}"
-                                name="quantity-{{ i }}" min="1" max="{{product.quantity}}" required
-                                (ngModelChange)="clearError('quantity')" />
-                              <button type="button" (click)="increaseQuantityCart(i)"
-                                [disabled]="entry.quantity >= product.quantity">+</button>
+                              <input type="text" [value]="product.name" readonly name="quantity" />
                             </div>
-                            <div *ngIf="formErrors.quantity" class="text-danger">
-                              <p *ngFor="let error of formErrors.quantity">{{ error }}</p>
-                            </div>
+                          </div>
+                          <div class="row" *ngFor="let entry of entries; let i = index">
+                            <div class="col-md-4 mb-3">
+                              <label for="quantity-{{ i }}" class="form-label">Quantity</label>
+                              <div class="quantity-control">
+                                <button type="button" (click)="decreaseQuantityCart(i)"
+                                  [disabled]="entry.quantity <= 1">-</button>
+                                <input type="number" [(ngModel)]="entry.quantity" id="quantity-{{ i }}"
+                                  name="quantity-{{ i }}" min="1" max="{{product.quantity}}" required
+                                  (ngModelChange)="clearError('quantity')" />
+                                <button type="button" (click)="increaseQuantityCart(i)"
+                                  [disabled]="entry.quantity >= product.quantity">+</button>
+                              </div>
+                              <div *ngIf="formErrors.quantity" class="text-danger">
+                                <p *ngFor="let error of formErrors.quantity">{{ error }}</p>
+                              </div>
 
-                          </div>
-                          <div class="col-md-4 mb-3">
-                            <label for="color-{{ i }}" class="form-label">Select Color</label>
-                            <select id="color-{{ i }}" name="color-{{ i }}" class="form-select"
-                              [(ngModel)]="entry.selectedColor" (ngModelChange)="clearError('color')" required>
-                              <ng-container *ngFor="let colors of productcolors">
-                                <ng-container *ngFor="let color of color">
-                                  <option *ngIf="colors.color_id == color.id && colors.product_id==product.id"
-                                    [value]="color.name">{{ color.name }}
-                                  </option>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <label for="color-{{ i }}" class="form-label">Select Color</label>
+                              <select id="color-{{ i }}" name="color-{{ i }}" class="form-select"
+                                [(ngModel)]="entry.selectedColor" (ngModelChange)="clearError('color')" required>
+                                <ng-container *ngFor="let colors of productcolors">
+                                  <ng-container *ngFor="let color of color">
+                                    <option *ngIf="colors.color_id == color.id && colors.product_id==product.id"
+                                      [value]="color.name">{{ color.name }}
+                                    </option>
+                                  </ng-container>
                                 </ng-container>
-                              </ng-container>
-                            </select>
-                            <div *ngIf="formErrors.color" class="text-danger">
-                              <p *ngFor="let error of formErrors.color">{{ error }}</p>
+                              </select>
+                              <div *ngIf="formErrors.color" class="text-danger">
+                                <p *ngFor="let error of formErrors.color">{{ error }}</p>
+                              </div>
+                            </div>
+                            <div class="col-md-2 mb-3 d-flex align-items-end">
+                              <button type="button" class="btn btn-danger" (click)="removeEntry(i)"
+                                [disabled]="entries.length === 1">
+                                Remove
+                              </button>
                             </div>
                           </div>
-                          <div class="col-md-2 mb-3 d-flex align-items-end">
-                            <button type="button" class="btn btn-danger" (click)="removeEntry(i)"
-                              [disabled]="entries.length === 1">
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-                        <button type="button" class="btn-card  btn-secondary mb-3" (click)="addEntry()">Add New Color</button>
-                        <button type="submit" class="btn-card  btn-primary">Add To Cart</button>
-                      </form>
+                          <button type="button" class="btn-card  btn-secondary mb-3" (click)="addEntry()">Add New
+                            Color</button>
+                          <button type="submit" class="btn-card  btn-primary">Add To Cart</button>
+                        </form>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
+
           </div>
           <pagination-controls (pageChange)="page = $event"></pagination-controls>
         </div>

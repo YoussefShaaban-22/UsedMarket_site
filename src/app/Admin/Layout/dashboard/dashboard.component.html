@@ -1,64 +1,185 @@
 <link rel="stylesheet" href="./dashboard.component.css">
 
 <app-header></app-header>
-<main id="main" class="main">
+
+<main id="main" class="main" *ngIf="!userinfo.seller_id; else sellermain">
   <section class="section dashboard">
     <div class="row">
-      <div class="col-xxl-4 col-md-4">
-        <div class="card info-card sales-card">
-          <div class="card-body">
-            <h5 class="card-title">Total Orders</h5>
-            <div class="d-flex align-items-center">
-              <div class="ps-3">
-                <h6>{{orderStats?.total_orders}} Order</h6>
+      <div class="col-lg-9">
+        <div class="row">
+          <div class="col-xxl-4 col-md-4">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Orders</h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6>{{orderStats?.total_orders}} Order</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-md-4">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Order Users </h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6> {{orderStats?.total_users}} User</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-md-4">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Order Sellers </h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6>{{orderStats?.total_sellers}} Seller</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-6 col-md-6">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Order Products </h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6>{{orderStats?.total_products}} Product</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-6 col-md-6">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Price</h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6>{{orderStats?.total_price}} EGP</h6>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <div>
+          <label for="yearSelect">Year:</label>
+          <select id="yearSelect" [(ngModel)]="selectedYear" (change)="onMonthOrYearChange()">
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+
+          <label for="monthSelect">Month:</label>
+          <select id="monthSelect" [(ngModel)]="selectedMonth" (change)="onMonthOrYearChange()">
+            <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
+          </select>
+        </div>
+        <div>
+          <canvasjs-chart [options]="chartOrderDate"></canvasjs-chart>
+        </div>
+        <br>
+        <div>
+          <canvasjs-chart [options]="chartUser"></canvasjs-chart>
+        </div>
+        <br>
+        <div>
+          <canvasjs-chart [options]="chartSeller"></canvasjs-chart>
+        </div>
+        <br>
+        <div>
+          <canvasjs-chart [options]="chartProduct"></canvasjs-chart>
+        </div>
+        <br>
       </div>
-      <div class="col-xxl-4 col-md-4">
-        <div class="card info-card sales-card">
-          <div class="card-body">
-            <h5 class="card-title">Total Order Users </h5>
-            <div class="d-flex align-items-center">
-              <div class="ps-3">
-                <h6> {{orderStats?.total_users}} User</h6>
+
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-xxl-12 col-md-12">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total User</h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6>{{usercount}} </h6>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-xxl-4 col-md-4">
-        <div class="card info-card sales-card">
-          <div class="card-body">
-            <h5 class="card-title">Total Order Sellers </h5>
-            <div class="d-flex align-items-center">
-              <div class="ps-3">
-                <h6>{{orderStats?.total_sellers}} Seller</h6>
+          <div class="col-xxl-12 col-md-12">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Seller</h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6> {{sellercount}}</h6>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-xxl-6 col-md-6">
-        <div class="card info-card sales-card">
-          <div class="card-body">
-            <h5 class="card-title">Total Order Products </h5>
-            <div class="d-flex align-items-center">
-              <div class="ps-3">
-                <h6>{{orderStats?.total_products}} Product</h6>
+          <div class="col-xxl-12 col-md-12">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Product</h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6> {{productcount}}</h6>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-xxl-6 col-md-6">
-        <div class="card info-card sales-card">
-          <div class="card-body">
-            <h5 class="card-title">Total Price</h5>
-            <div class="d-flex align-items-center">
-              <div class="ps-3">
-                <h6>{{orderStats?.total_price}} EGP</h6>
+          <div class="col-xxl-12 col-md-12">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Product Category </h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6>{{productcategorycount}} </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-12 col-md-12">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Blogs </h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6> {{blogcount}}</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-12 col-md-12">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Blog Category </h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6> {{blogcategorycount}}</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-12 col-md-12">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Brand</h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3">
+                    <h6> {{brandcount}}</h6>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -67,16 +188,118 @@
     </div>
   </section>
 </main>
-<main id="main" class="main">
-  <div>
-    <canvasjs-chart [options]="chartUser"></canvasjs-chart>
-  </div>
 
-  <div>
-    <canvasjs-chart [options]="chartSeller"></canvasjs-chart>
-  </div>
+<ng-template #sellermain>
+  <main id="main" class="main">
+    <section class="section dashboard">
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="row">
+            <div class="col-xxl-6 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Orders</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                      <h6>{{orderSellerStats?.total_orders}} Order</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-6 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Order Users </h5>
+                  <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                      <h6> {{orderSellerStats?.total_users}} User</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-  <div>
-    <canvasjs-chart [options]="chartProduct"></canvasjs-chart>
-  </div>
-</main>
+            <div class="col-xxl-6 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Order Products </h5>
+                  <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                      <h6>{{orderSellerStats?.total_products}} Product</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-6 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Price</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                      <h6>{{orderSellerStats?.total_price}} EGP</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="yearSelect">Year:</label>
+            <select id="yearSelect" [(ngModel)]="selectedYear" (change)="onMonthOrYearSellerChange()">
+              <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+
+            <label for="monthSelect">Month:</label>
+            <select id="monthSelect" [(ngModel)]="selectedMonth" (change)="onMonthOrYearSellerChange()">
+              <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
+            </select>
+          </div>
+          <div>
+            <canvasjs-chart [options]="chartOrderSellerDate"></canvasjs-chart>
+          </div>
+          <br>
+          <div>
+            <canvasjs-chart [options]="chartSellerUser"></canvasjs-chart>
+          </div>
+          <br>
+          <div>
+            <canvasjs-chart [options]="chartSellerProduct"></canvasjs-chart>
+          </div>
+          <br>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="row">
+            <div class="col-xxl-12 col-md-12">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total User</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                      <h6> {{usercount}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-12 col-md-12">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Product</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                      <h6> {{productcount}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</ng-template>

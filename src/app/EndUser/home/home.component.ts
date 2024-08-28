@@ -17,7 +17,6 @@ import { BrandService } from '../../apiservices/brand.service';
 import { isPlatformBrowser } from '@angular/common';
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-
 import 'swiper/swiper-bundle.css';
 import { color } from '../../models/color';
 import { cart } from '../../models/cart';
@@ -25,6 +24,7 @@ import { ColorService } from '../../apiservices/color.service';
 import { CartService } from '../../apiservices/cart.service';
 import { AuthApiFunctionService } from '../../apiservices/auth-api-function.service';
 import { productcolor } from '../../models/productcolor';
+import { AnalysisorderService, ProductOrderStats } from '../../apiservices/analysisorder.service';
 
 @Component({
   selector: 'app-home',
@@ -53,11 +53,13 @@ export class HomeComponent implements AfterViewInit {
   user: any = null;
   user_id: any = null;
   productcolors: productcolor[] = [];
+  productOrderStats: ProductOrderStats[] = [];
 
-  constructor(private Sliderserv: SliderService, private categoryserv: ProductcategoryService,
-    private Productserv: ProductService, private blogserv: BlogService, private sellerserv: SellerService,
-    private cartserv: CartService, private colorserv: ColorService,private Authserv: AuthApiFunctionService,
-    private brandserv: BrandService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private analysisorderService: AnalysisorderService,private Sliderserv: SliderService,
+    private categoryserv: ProductcategoryService,private Productserv: ProductService, private blogserv: BlogService,
+    private sellerserv: SellerService,private cartserv: CartService, private colorserv: ColorService,
+    private Authserv: AuthApiFunctionService,private brandserv: BrandService, private router: Router,
+     @Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     const userData = this.Authserv.getItem('user');
     if (userData) {
@@ -130,6 +132,11 @@ export class HomeComponent implements AfterViewInit {
         console.error('Error fetching product categories', error);
       }
     );
+
+    this.analysisorderService.getProductOrderStats().subscribe((response: any) => {
+      this.productOrderStats = response.data || [];
+
+    });
   }
   ngAfterViewInit(): void {
     this.initSwiper();

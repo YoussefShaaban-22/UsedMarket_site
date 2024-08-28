@@ -72,7 +72,7 @@ export class ViewProductComponent {
       this.user_email = this.user.email;
       this.user_phone = this.user.phone;
       this.user_name = this.user.name;
-      this.user_seller_id=this.user.seller_id;
+      this.user_seller_id = this.user.seller_id;
     }
   }
 
@@ -83,6 +83,13 @@ export class ViewProductComponent {
       this.productserv.getproductByslug(this.slug).subscribe(
         (data: any) => {
           this.product = data;
+          this.sellerserv.getsellerById(this.product.Product.seller_id).subscribe(
+            (data: seller) => {
+              this.seller = data;
+            },
+            error => {
+            }
+          );
 
           if (Array.isArray(this.product.Product.image)) {
             this.image = this.product.Product.image;
@@ -145,13 +152,6 @@ export class ViewProductComponent {
       },
       error => {
         console.error('Error fetching colors', error);
-      }
-    );
-    this.sellerserv.getsellerById(this.product.Product.seller_id).subscribe(
-      (data: seller) => {
-        this.seller = data;
-      },
-      error => {
       }
     );
 
@@ -302,7 +302,7 @@ export class ViewProductComponent {
     inquiryData.append('product_name', this.inquiry.product_name);
     inquiryData.append('user_phone', this.inquiry.user_phone);
     inquiryData.append('inquiry', this.inquiry.inquiry);
-    if (this.product.Product.seller_id!=null) {
+    if (this.product.Product.seller_id != null) {
       inquiryData.append('seller_id', this.product.Product.seller_id);
     }
     this.inquiryserv.addinquiry(inquiryData).subscribe(response => {

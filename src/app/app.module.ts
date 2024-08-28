@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSliderModule} from '@angular/material/slider';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
@@ -187,6 +188,7 @@ import { ChatService } from './apiservices/chat.service';
     BrowserAnimationsModule,
     NgxPaginationModule,
     CanvasJSAngularChartsModule,
+    NgxDaterangepickerMd.forRoot()
   ],
   providers: [
     provideClientHydration(),

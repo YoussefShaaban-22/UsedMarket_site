@@ -253,11 +253,15 @@
   width: 200px !important;
   height: 100px;
   object-fit: contain;
+  border-radius: 20px;
+
 }
 
 .cardimage {
   position: relative;
   overflow: hidden;
+  border-radius: 20px;
+
 }
 
 .card-footer {

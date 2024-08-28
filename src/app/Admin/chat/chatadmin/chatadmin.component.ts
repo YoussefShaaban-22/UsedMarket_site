@@ -4,7 +4,7 @@ import { AuthApiFunctionService } from '../../../apiservices/auth-api-function.s
 import { ActivatedRoute, Router } from '@angular/router';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -24,6 +24,8 @@ export class ChatadminComponent {
   selectedFile!: File;
   showError: boolean = false;
   private echo: Echo;
+  Allchats: any[] = [];
+  userNames: { [userId: number]: any } = {};
 
   constructor(
     private chatService: ChatService,
@@ -39,24 +41,57 @@ export class ChatadminComponent {
     if (userData) {
       this.user = JSON.parse(userData);
       this.userId = this.user.id;
-
-      this.route.queryParams.subscribe(params => {
-        if (params['chatId']) {
-          this.currentChatId = +params['chatId']; // Ensure chatId is a number
-          this.openChat(this.currentChatId);
-        }
-      });
-
-      this.chatService.getUserChats(this.userId).subscribe(chats => {
-        this.chats = chats;
-        this.chats.forEach(chat => {
-          this.getChatUserName(chat);
-          chat.lastMessageText = chat.last_message ? chat.last_message.message : 'No messages yet';
+      if (this.user.seller_id) {
+        this.route.queryParams.subscribe(params => {
+          if (params['chatId']) {
+            this.currentChatId = +params['chatId']; // Ensure chatId is a number
+            this.openChat(this.currentChatId);
+          }
         });
-      }, error => {
-        console.error('Error fetching user chats:', error);
-      });
+
+        this.chatService.getUserChats(this.userId).subscribe(chats => {
+          this.chats = chats;
+          this.chats.forEach(chat => {
+            this.getChatUserName(chat);
+            chat.lastMessageText = chat.last_message ? chat.last_message.message : 'No messages yet';
+          });
+        }, error => {
+          console.error('Error fetching user chats:', error);
+        });
+      } else {
+
+        this.route.queryParams.subscribe(params => {
+          if (params['chatId']) {
+            this.currentChatId = +params['chatId']; // Ensure chatId is a number
+            this.openAllchat(this.currentChatId);
+          }
+        });
+
+        this.chatService.getAllChats().subscribe((data: any[]) => {
+          this.Allchats = data;
+          this.Allchats.forEach(chat => {
+            this.getUserNameById(chat.user1).subscribe(user1Name => {
+              chat.user1Name = user1Name;
+            });
+            this.getUserNameById(chat.user2).subscribe(user2Name => {
+              chat.user2Name = user2Name;
+            });
+            chat.allMessages = chat.messages; // Get all messages
+          });
+        }, error => {
+          console.error('Error fetching all chats:', error);
+        });
+      }
     }
+  }
+  getUserNameById(userId: any): Observable<string> {
+    return this.Authserv.getUserByID(userId).pipe(
+      map(user => user?.name || 'Unknown User'), // Use a default value for undefined
+      catchError(error => {
+        console.error('Error fetching user data:', error);
+        return of('Unknown User');
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -70,7 +105,6 @@ export class ChatadminComponent {
     if (this.currentChatId) {
       this.echo.channel('chat.' + this.currentChatId)
         .listen('MessageSent', (event: any) => {
-          console.log('Message received:', event.message);
           this.currentChatMessages.push(event.message);
         });
     }
@@ -84,10 +118,33 @@ export class ChatadminComponent {
       console.error('Error fetching user data:', error);
     });
   }
-
-  openChat(chatId: number): void {
+  fetchUserNames(): void {
+    this.Authserv.getuser().subscribe(users => {
+      users.forEach(user => {
+        this.userNames[user.id] = user.name;
+      });
+    }, error => {
+      console.error('Error fetching user names:', error);
+    });
+  }
+  openAllchat(chatId: number): void {
     this.chatService.getMessages(chatId).subscribe(messages => {
       this.currentChatMessages = messages;
+      const chat = this.Allchats.find(c => c.id === chatId);
+      if (chat) {
+        this.currentChatUser = { name: `${chat.user1Name} & ${chat.user2Name}` };
+      }
+      // Ensure user names are fetched and assigned correctly
+      this.fetchUserNames();
+    }, error => {
+      console.error('Error fetching messages:', error);
+    });
+
+    this.router.navigate(['/admin/chats'], { queryParams: { chatId: chatId } });
+  }
+  openChat(chatId: number): void {
+    this.chatService.getMessages(chatId).subscribe(messages => {
+      this.currentChatMessages = messages; // Ensure messages are fetched correctly
       const chat = this.chats.find(chat => chat.id === chatId);
       if (chat) {
         const otherUserId = chat.user1 === this.userId ? chat.user2 : chat.user1;

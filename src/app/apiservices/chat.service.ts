@@ -34,7 +34,9 @@ export class ChatService {
   getUserChats(userId: number): Observable<any> {
     return this.http.get(`http://127.0.0.1:8000/api/chat/user/${userId}`);
   }
-
+  getAllChats(): Observable<any> {
+    return this.http.get('http://127.0.0.1:8000/api/chats');
+  }
   sendMessage(chatId: number, sender: number, receiver: number, message: string, image: any): Observable<any> {
     return this.http.post(`http://127.0.0.1:8000/api/message`, { chat_id: chatId, sender, receiver, message, image });
   }

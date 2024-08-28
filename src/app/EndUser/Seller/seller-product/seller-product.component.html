@@ -52,7 +52,7 @@
     <div class="container">
       <div class="row main_card">
         <ng-container *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: page }">
-          <ng-container *ngIf="seller.id == product.seller_id">
+          <ng-container *ngIf="seller.id == product.seller_id && product.status === 'publish'">
 
             <div class="col-lg-3 col-md-12 product_card">
               <div class="card">
